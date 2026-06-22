@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Atelier ROI visio V2.1 complet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --text-sm: clamp(0.9rem, 0.85rem + 0.2vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.2vw, 1.1rem);
+      --text-lg: clamp(1.2rem, 1rem + 0.6vw, 1.5rem);
+      --text-xl: clamp(1.7rem, 1.2rem + 1.5vw, 2.6rem);
+      --text-2xl: clamp(2.2rem, 1.5rem + 2.5vw, 4rem);
+      --space-2: .5rem; --space-3: .75rem; --space-4: 1rem; --space-5: 1.25rem; --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem;
+      --radius-md: .75rem; --radius-lg: 1rem; --radius-xl: 1.25rem;
+      --bg: #f7f6f2; --surface: #fcfbf8; --surface-2: #f1eee8; --border: #d7d2ca; --text: #25221d; --muted: #706d67; --primary: #01696f; --warm: #f4e7dc; --green: #e2edd8; --teal-soft:#dcebea;
+      --shadow: 0 18px 45px rgba(32, 28, 22, 0.08);
+      --font-body: 'Instrument Sans', sans-serif; --font-display: 'Newsreader', serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: linear-gradient(180deg, #f7f6f2 0%, #f1eee8 100%); color: var(--text); font-family: var(--font-body); }
+    button, input, textarea, select { font: inherit; }
+    .shell { max-width: 1240px; margin: 0 auto; padding: var(--space-6); }
+    .panel { background: rgba(252,251,248,.96); border: 1px solid rgba(37,34,29,.08); border-radius: var(--radius-xl); box-shadow: var(--shadow); }
+    .topbar { display:flex; justify-content:space-between; align-items:center; gap:var(--space-4); padding:var(--space-4) var(--space-5); margin-bottom:var(--space-6); position:sticky; top:10px; z-index:10; backdrop-filter: blur(10px); }
+    .brand { display:flex; align-items:center; gap:12px; }
+    .logo { width:42px; height:42px; border-radius:12px; background:var(--primary); color:#fff; display:grid; place-items:center; font-weight:700; }
+    .actions { display:flex; gap:10px; flex-wrap:wrap; }
+    button { border:1px solid rgba(37,34,29,.1); background:#fff; border-radius:999px; padding:.8rem 1rem; cursor:pointer; color:var(--text); }
+    button.primary { background:var(--primary); color:#fff; border-color:transparent; }
+    .hero { padding: var(--space-8); margin-bottom: var(--space-6); }
+    .hero h1 { margin:0 0 var(--space-3); font-family:var(--font-display); font-size:var(--text-2xl); line-height:1.02; max-width: 12ch; }
+    .hero p { margin:0; max-width: 60ch; color:var(--muted); font-size: var(--text-base); }
+    .progress { display:grid; grid-template-columns: repeat(4, 1fr); gap:12px; margin-top: var(--space-6); }
+    .progress-card { background: var(--surface-2); padding: var(--space-4); border-radius: var(--radius-lg); border:1px solid rgba(37,34,29,.06); }
+    .progress-card.active { background: var(--primary); color:#fff; }
+    .main { padding: var(--space-8); }
+    .kicker { color: var(--muted); text-transform: uppercase; letter-spacing: .08em; font-size: .82rem; font-weight: 700; margin-bottom: var(--space-3); }
+    .step-title { font-size: var(--text-xl); margin:0 0 var(--space-3); }
+    .step-intro { color: var(--muted); max-width: 60ch; margin: 0 0 var(--space-8); }
+    .focus-box { background: var(--warm); border:1px solid rgba(37,34,29,.06); padding: var(--space-6); border-radius: var(--radius-lg); margin-bottom: var(--space-6); }
+    .focus-box strong { display:block; font-size: var(--text-lg); margin-bottom: 8px; }
+    .field-group { display:none; }
+    .field-group.active { display:block; }
+    .field-grid-2, .field-grid-3 { display:grid; gap: var(--space-5); }
+    .field-grid-2 { grid-template-columns: 1fr 1fr; }
+    .field-grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .field { display:flex; flex-direction:column; gap:8px; margin-bottom: var(--space-5); }
+    .field label { font-size: var(--text-sm); font-weight: 600; }
+    .field input, .field textarea, .field select { width:100%; border:1px solid var(--border); border-radius:14px; background:#fff; padding: 1rem; color:var(--text); }
+    .field textarea { min-height: 110px; resize: vertical; }
+    .mini-note { margin-top: -6px; color: var(--muted); font-size: var(--text-sm); }
+    .summary { margin-top: var(--space-8); padding: var(--space-6); border-radius: var(--radius-lg); background: var(--green); }
+    .summary h3 { margin:0 0 var(--space-3); }
+    .summary p { margin:0; }
+    .step-footer { display:flex; justify-content:space-between; align-items:center; gap:var(--space-4); flex-wrap:wrap; margin-top: var(--space-8); }
+    .badge { display:inline-flex; align-items:center; gap:8px; background:#fff; border:1px solid rgba(37,34,29,.08); padding:.55rem .85rem; border-radius:999px; color:var(--muted); }
+    .roi-cards { display:grid; grid-template-columns: repeat(4,1fr); gap:var(--space-4); margin-top: var(--space-6); }
+    .roi-card { padding: var(--space-5); border-radius: var(--radius-lg); background: var(--surface-2); }
+    .roi-card strong { display:block; font-family: var(--font-display); font-size: var(--text-lg); margin-top: 8px; }
+    .compare { display:grid; grid-template-columns: repeat(3,1fr); gap: var(--space-4); margin-top: var(--space-6); }
+    .compare-card { padding: var(--space-5); border-radius: var(--radius-lg); min-height: 220px; border:1px solid rgba(37,34,29,.08); }
+    .compare-card.before { background:#fff; }
+    .compare-card.after { background: var(--teal-soft); }
+    .compare-card.gains { background: var(--warm); }
+    .compare-card h3 { margin-top:0; }
+    .compare-card ul { margin:0; padding-left:1rem; }
+    .compare-card li { margin-bottom:8px; }
+    .final-box { background:#fff; border:1px dashed rgba(1,105,111,.35); border-radius: var(--radius-lg); padding: var(--space-6); }
+    .final-box ul { margin:0; padding-left: 1rem; }
+    .final-box li { margin-bottom: 8px; }
+    .subtle { color: var(--muted); font-size: var(--text-sm); }
+    @media (max-width: 980px) { .progress, .roi-cards, .compare, .field-grid-2, .field-grid-3 { grid-template-columns: 1fr; } }
+    @media (max-width: 760px) { .shell { padding: var(--space-4); } .topbar { position:static; } .hero, .main { padding: var(--space-5); } .hero h1 { max-width:none; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="topbar panel">
+      <div class="brand">
+        <div class="logo">R</div>
+        <div>
+          <div><strong>Rennesdev.fr</strong> · Atelier ROI visio V2.1 complet</div>
+          <small style="color:#706d67;">Version écran allégée avec les questions complètes de la V2</small>
+        </div>
+      </div>
+      <div class="actions">
+        <button id="fillDemo">Exemple</button>
+        <button id="clearAll">Vider</button>
+        <button id="printBtn" class="primary">Imprimer / PDF</button>
+      </div>
+    </div>
+
+    <section class="hero panel">
+      <h1 id="heroTitle">Comprendre ce qui ralentit vraiment.</h1>
+      <p id="heroText">Une étape à la fois. On clarifie le besoin, on dessine une première solution, puis on estime si cela vaut le coup.</p>
+      <div class="progress" id="progressBar"></div>
+    </section>
+
+    <section class="panel main">
+      <div class="kicker" id="stepKicker">Étape 1</div>
+      <h2 class="step-title" id="stepTitle">Le besoin réel</h2>
+      <p class="step-intro" id="stepIntro">On commence par le terrain, pas par la technique.</p>
+
+      <div class="focus-box">
+        <strong id="mainQuestion">Qu’est-ce qui vous fait perdre du temps aujourd’hui ?</strong>
+        <div id="mainQuestionHint" class="mini-note">Répondre simplement, avec des mots du quotidien.</div>
+      </div>
+
+      <div id="group1" class="field-group active">
+        <div class="field-grid-2">
+          <div class="field"><label for="company">Entreprise / activité</label><input id="company" placeholder="Ex. PME de services, BTP, cabinet, organisme de formation" /></div>
+          <div class="field"><label for="sector">Métier ou environnement</label><input id="sector" placeholder="Ex. devis, support client, RH, ADV" /></div>
+        </div>
+        <div class="field-grid-2">
+          <div class="field"><label for="team">Équipe concernée</label><input id="team" placeholder="Ex. dirigeant, assistante, commercial" /></div>
+          <div class="field"><label for="process">Processus étudié</label><input id="process" placeholder="Ex. traitement des demandes entrantes" /></div>
+        </div>
+        <div class="field"><label for="triggerNeed">Pourquoi en parler maintenant ?</label><textarea id="triggerNeed" placeholder="Retards, oublis, surcharge, manque de suivi, trop de copier-coller..."></textarea></div>
+        <div class="field"><label for="workflowNow">Comment cela se passe aujourd’hui, étape par étape ?</label><textarea id="workflowNow" placeholder="Décris le chemin actuel de l’information, du début à la fin."></textarea></div>
+        <div class="field-grid-2">
+          <div class="field"><label for="toolsNow">Outils utilisés aujourd’hui</label><input id="toolsNow" placeholder="Ex. mails, Excel, ERP, WhatsApp, logiciel métier" /></div>
+          <div class="field"><label for="owners">Qui intervient dans le process ?</label><input id="owners" placeholder="Ex. assistante, commercial, dirigeant" /></div>
+        </div>
+        <div class="field-grid-2">
+          <div class="field"><label for="frequencyLabel">Fréquence</label><select id="frequencyLabel"><option>Plusieurs fois par jour</option><option>Chaque jour</option><option>Chaque semaine</option><option>Chaque mois</option></select></div>
+          <div class="field"><label for="timePer">Temps passé par occurrence</label><input id="timePer" placeholder="Ex. 20 min, 30 min" /></div>
+        </div>
+        <div class="field-grid-2">
+          <div class="field"><label for="pain">Ce qui fait perdre du temps</label><textarea id="pain" placeholder="Ressaisies, validations dispersées, recherches d’infos, relances manuelles..."></textarea></div>
+          <div class="field"><label for="impact">Conséquences concrètes</label><textarea id="impact" placeholder="Retards, oublis, frustration, image client, surcharge, manque de visibilité..."></textarea></div>
+        </div>
+        <div class="field"><label for="priority">Pourquoi ce sujet mérite d’être prioritaire</label><textarea id="priority" placeholder="Ce que cela débloque pour l’équipe ou l’entreprise."></textarea></div>
+      </div>
+
+      <div id="group2" class="field-group">
+        <div class="field-grid-2">
+          <div class="field"><label for="objective">Objectif principal</label><input id="objective" placeholder="Ex. répondre plus vite et éviter les oublis" /></div>
+          <div class="field"><label for="solutionTrigger">Déclencheur</label><input id="solutionTrigger" placeholder="Ex. arrivée d’un mail ou formulaire" /></div>
+        </div>
+        <div class="field-grid-2">
+          <div class="field"><label for="sources">Sources de données</label><input id="sources" placeholder="Ex. Gmail, formulaire web, Airtable" /></div>
+          <div class="field"><label for="result">Résultat attendu</label><input id="result" placeholder="Ex. demande propre, centralisée, suivie" /></div>
+        </div>
+        <div class="field-grid-2">
+          <div class="field"><label for="automate">Ce qu’on peut automatiser</label><textarea id="automate" placeholder="Collecte, tri, structuration, notification, relance simple..."></textarea></div>
+          <div class="field"><label for="human">Ce qui doit rester humain</label><textarea id="human" placeholder="Validation finale, arbitrage, décision commerciale..."></textarea></div>
+        </div>
+        <div class="field-grid-3">
+          <div class="field"><label for="toolsFuture">Outils à connecter</label><input id="toolsFuture" placeholder="Ex. Gmail, n8n, Airtable, ERP" /></div>
+          <div class="field"><label for="version1">Livrable V1</label><input id="version1" placeholder="Ex. collecte + tri + notification" /></div>
+          <div class="field"><label for="quickwin">Quick win</label><input id="quickwin" placeholder="Ex. 2 à 4 h gagnées / semaine" /></div>
+        </div>
+        <div class="field-grid-2">
+          <div class="field"><label for="complexity">Complexité perçue</label><select id="complexity"><option>Faible</option><option>Moyenne</option><option>Élevée</option></select></div>
+          <div class="field"><label for="limits">Ce qu’on ne traite pas tout de suite</label><input id="limits" placeholder="Ex. reporting avancé, ERP complet, historique" /></div>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-top:var(--space-6);">
+          <div>
+            <strong>Avant / Après / Gains</strong>
+            <div class="subtle">Version de lecture rapide pendant la visio</div>
+          </div>
+          <button id="refreshSolution">Actualiser</button>
+        </div>
+        <div class="compare">
+          <div class="compare-card before">
+            <h3>Avant</h3>
+            <ul id="beforeList"><li>Le process “Processus non précisé” repose encore sur plusieurs étapes manuelles.</li><li>Les frictions actuelles restent à préciser.</li></ul>
+          </div>
+          <div class="compare-card after">
+            <h3>Après</h3>
+            <ul id="afterList"><li>Le déclencheur “à préciser” lance une première chaîne utile.</li><li>Une partie du flux est fiabilisée via les outils déjà en place.</li><li>La validation finale reste côté équipe.</li></ul>
+          </div>
+          <div class="compare-card gains">
+            <h3>Gains attendus</h3>
+            <ul id="gainsList"><li>Résultat attendu à préciser.</li><li>Quick win à préciser.</li><li>V1 recommandée : à préciser.</li></ul>
+          </div>
+        </div>
+      </div>
+
+      <div id="group3" class="field-group">
+        <div class="field-grid-3">
+          <div class="field"><label for="volumeMonthly">Volume mensuel</label><input id="volumeMonthly" type="number" min="0" step="1" placeholder="Ex. 80" /></div>
+          <div class="field"><label for="minutesNow">Temps actuel par occurrence (minutes)</label><input id="minutesNow" type="number" min="0" step="1" placeholder="Ex. 20" /></div>
+          <div class="field"><label for="minutesAfter">Temps futur estimé (minutes)</label><input id="minutesAfter" type="number" min="0" step="1" placeholder="Ex. 7" /></div>
+        </div>
+        <div class="field-grid-3">
+          <div class="field"><label for="hourlyRate">Valeur horaire retenue (€)</label><input id="hourlyRate" type="number" min="0" step="1" placeholder="Ex. 40" /></div>
+          <div class="field"><label for="errorCost">Erreurs évitées / mois (€)</label><input id="errorCost" type="number" min="0" step="1" placeholder="Ex. 80" /></div>
+          <div class="field"><label for="projectCost">Coût projet (€)</label><input id="projectCost" type="number" min="0" step="1" placeholder="Ex. 1200" /></div>
+        </div>
+        <div class="roi-cards">
+          <div class="roi-card"><span style="color:#706d67;">Heures gagnées / mois</span><strong id="hoursSaved">-</strong></div>
+          <div class="roi-card"><span style="color:#706d67;">Valeur mensuelle</span><strong id="timeValue">-</strong></div>
+          <div class="roi-card"><span style="color:#706d67;">Gain net mensuel</span><strong id="netMonthly">-</strong></div>
+          <div class="roi-card"><span style="color:#706d67;">Rentabilité estimée</span><strong id="breakEven">-</strong></div>
+        </div>
+      </div>
+
+      <div id="group4" class="field-group">
+        <div class="final-box" id="finalSummary">
+          <ul><li>La synthèse finale apparaîtra ici.</li></ul>
+        </div>
+      </div>
+
+      <div class="summary">
+        <h3 id="summaryTitle">Reformulation de l’étape</h3>
+        <p id="stepSummary">La reformulation courte apparaîtra ici pendant l’échange.</p>
+      </div>
+
+      <div class="step-footer">
+        <span class="badge" id="statusBadge">Statut : étape 1</span>
+        <div class="actions">
+          <button id="prevStep">Retour</button>
+          <button id="nextStep" class="primary">Étape suivante</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const steps = {
+      1: { kicker:'Étape 1', title:'Le besoin réel', intro:'On garde la lisibilité de la V2.1, mais avec toute la matière d’analyse de la V2.', heroTitle:'Comprendre le contexte sans perdre la fluidité.', heroText:'Le client voit une étape à la fois, mais tu conserves les vraies questions de cadrage.', question:'Qu’est-ce qui se passe aujourd’hui, concrètement ?', hint:'On cherche le terrain réel, pas encore la solution.', progress:'Besoin' },
+      2: { kicker:'Étape 2', title:'La première solution', intro:'On transforme l’analyse en V1 simple, compréhensible et projetable.', heroTitle:'Passer du problème à une première solution claire.', heroText:'L’idée reste de montrer une première marche crédible, pas une usine à gaz.', question:'Qu’est-ce qu’on peut simplifier en premier ?', hint:'On garde l’humain là où il y a de la décision.', progress:'Solution' },
+      3: { kicker:'Étape 3', title:'L’intérêt économique', intro:'On estime le gain avec une base prudente.', heroTitle:'Mettre un ordre de grandeur sur l’intérêt du projet.', heroText:'Temps gagné, valeur du temps et rentabilité estimée pour décider.', question:'Si on améliore ce process, combien de temps peut-on récupérer ?', hint:'Le but est d’éclairer la décision, pas de survendre.', progress:'ROI' },
+      4: { kicker:'Étape 4', title:'La synthèse finale', intro:'On referme la visio avec une formulation claire, simple et rassurante.', heroTitle:'Terminer sur une synthèse lisible.', heroText:'Le client repart avec une compréhension claire du besoin, de la V1 et de l’intérêt économique.', question:'Est-ce que cette synthèse reflète bien votre réalité ?', hint:'On valide ensemble la formulation finale.', progress:'Synthèse' }
+    };
+    let currentStep = 1;
+    const roi = { hoursSaved:0, monthlyTimeValue:0, netMonthly:0, breakEven:null };
+    const eur = (n) => new Intl.NumberFormat('fr-FR', { style:'currency', currency:'EUR', maximumFractionDigits:0 }).format(n || 0);
+    const hoursFmt = (n) => `${(Math.round((n || 0) * 10) / 10).toLocaleString('fr-FR')} h`;
+    const el = id => document.getElementById(id);
+
+    function renderProgress() {
+      el('progressBar').innerHTML = Object.keys(steps).map(k => `<div class="progress-card ${Number(k)===currentStep?'active':''}"><strong>${k}</strong><div>${steps[k].progress}</div></div>`).join('');
+    }
+
+    function splitText(text, fallback) {
+      if (!text.trim()) return [fallback];
+      return text.split(/\n|,|;|•/).map(v => v.trim()).filter(Boolean).slice(0, 4);
+    }
+
+    function refreshSolution() {
+      const process = el('process').value || 'Processus non précisé';
+      const before = [
+        `Le process “${process}” repose encore sur plusieurs étapes manuelles.`,
+        ...splitText(el('pain').value || '', 'Les frictions actuelles restent à préciser.').slice(0, 2)
+      ];
+      const after = [
+        `Le déclencheur “${el('solutionTrigger').value || 'à préciser'}” lance une première chaîne utile.`,
+        `Une partie du flux est fiabilisée via ${el('toolsFuture').value || 'les outils déjà en place'}.`,
+        `${(el('human').value || 'La validation finale reste côté équipe.').replace(/\.$/, '')}.`
+      ];
+      const gains = [
+        `${el('result').value || 'Résultat attendu à préciser'}.`,
+        `${el('quickwin').value || 'Quick win à préciser'}.`,
+        `V1 recommandée : ${el('version1').value || 'à préciser'}.`
+      ];
+      el('beforeList').innerHTML = before.map(item => `<li>${item}</li>`).join('');
+      el('afterList').innerHTML = after.map(item => `<li>${item}</li>`).join('');
+      el('gainsList').innerHTML = gains.map(item => `<li>${item}</li>`).join('');
+    }
+
+    function calculateRoi() {
+      const volume = Number(el('volumeMonthly').value || 0);
+      const minutesNow = Number(el('minutesNow').value || 0);
+      const minutesAfter = Number(el('minutesAfter').value || 0);
+      const hourlyRate = Number(el('hourlyRate').value || 0);
+      const errorCost = Number(el('errorCost').value || 0);
+      const projectCost = Number(el('projectCost').value || 0);
+      roi.hoursSaved = Math.max(0, (volume * minutesNow - volume * minutesAfter) / 60);
+      roi.monthlyTimeValue = roi.hoursSaved * hourlyRate;
+      roi.netMonthly = roi.monthlyTimeValue + errorCost;
+      roi.breakEven = roi.netMonthly > 0 ? projectCost / roi.netMonthly : null;
+      el('hoursSaved').textContent = hoursFmt(roi.hoursSaved);
+      el('timeValue').textContent = eur(roi.monthlyTimeValue);
+      el('netMonthly').textContent = eur(roi.netMonthly);
+      el('breakEven').textContent = roi.breakEven ? `${roi.breakEven.toFixed(1).replace('.', ',')} mois` : 'Non défini';
+    }
+
+    function updateSummary() {
+      if (currentStep === 1) {
+        el('summaryTitle').textContent = 'Reformulation du besoin';
+        el('stepSummary').textContent = `${el('company').value || 'L’entreprise'} travaille dans ${el('sector').value || 'un environnement à préciser'}. Le process “${el('process').value || 'à préciser'}” mobilise ${el('owners').value || 'des intervenants à préciser'} et fait perdre du temps à cause de ${el('pain').value || 'frictions à préciser'}, avec comme impact ${el('impact').value || 'conséquences à préciser'}.`;
+      } else if (currentStep === 2) {
+        refreshSolution();
+        el('summaryTitle').textContent = 'Reformulation de la solution';
+        el('stepSummary').textContent = `Une V1 pourrait viser ${el('objective').value || 'un objectif à préciser'}, à partir du déclencheur “${el('solutionTrigger').value || 'à préciser'}”, en automatisant ${el('automate').value || 'la partie répétitive à préciser'}, tout en gardant ${el('human').value || 'une validation humaine'} et en livrant ${el('version1').value || 'une première version à préciser'}.`;
+      } else if (currentStep === 3) {
+        calculateRoi();
+        el('summaryTitle').textContent = 'Lecture ROI';
+        el('stepSummary').textContent = `${el('process').value || 'Ce process'} pourrait libérer environ ${hoursFmt(roi.hoursSaved)} par mois, soit ${eur(roi.monthlyTimeValue)} de valeur mensuelle, avec une rentabilité estimée à ${roi.breakEven ? roi.breakEven.toFixed(1).replace('.', ',') + ' mois' : 'confirmer'}.`;
+      } else {
+        const payback = roi.breakEven ? roi.breakEven.toFixed(1).replace('.', ',') + ' mois' : 'à confirmer';
+        el('finalSummary').innerHTML = `
+          <ul>
+            <li><strong>Entreprise / activité :</strong> ${el('company').value || 'à préciser'}.</li>
+            <li><strong>Métier ou environnement :</strong> ${el('sector').value || 'à préciser'}.</li>
+            <li><strong>Équipe concernée :</strong> ${el('team').value || 'à préciser'}.</li>
+            <li><strong>Processus étudié :</strong> ${el('process').value || 'à préciser'}.</li>
+            <li><strong>Pourquoi maintenant :</strong> ${el('triggerNeed').value || 'à préciser'}.</li>
+            <li><strong>Fonctionnement actuel :</strong> ${el('workflowNow').value || 'à préciser'}.</li>
+            <li><strong>Outils actuels :</strong> ${el('toolsNow').value || 'à préciser'}.</li>
+            <li><strong>Intervenants :</strong> ${el('owners').value || 'à préciser'}.</li>
+            <li><strong>Fréquence et temps :</strong> ${el('frequencyLabel').value || 'à préciser'} · ${el('timePer').value || 'temps à préciser'}.</li>
+            <li><strong>Point de friction :</strong> ${el('pain').value || 'à préciser'}.</li>
+            <li><strong>Conséquences :</strong> ${el('impact').value || 'à préciser'}.</li>
+            <li><strong>Pourquoi prioritaire :</strong> ${el('priority').value || 'à préciser'}.</li>
+            <li><strong>Objectif principal :</strong> ${el('objective').value || 'à préciser'}.</li>
+            <li><strong>Déclencheur :</strong> ${el('solutionTrigger').value || 'à préciser'}.</li>
+            <li><strong>Sources de données :</strong> ${el('sources').value || 'à préciser'}.</li>
+            <li><strong>Résultat attendu :</strong> ${el('result').value || 'à préciser'}.</li>
+            <li><strong>Ce qu’on automatise :</strong> ${el('automate').value || 'à préciser'}.</li>
+            <li><strong>Ce qui reste humain :</strong> ${el('human').value || 'à préciser'}.</li>
+            <li><strong>Outils à connecter :</strong> ${el('toolsFuture').value || 'à préciser'}.</li>
+            <li><strong>Livrable V1 :</strong> ${el('version1').value || 'à préciser'}.</li>
+            <li><strong>Quick win :</strong> ${el('quickwin').value || 'à préciser'}.</li>
+            <li><strong>Complexité perçue :</strong> ${el('complexity').value || 'à préciser'}.</li>
+            <li><strong>Ce qu’on ne traite pas tout de suite :</strong> ${el('limits').value || 'à préciser'}.</li>
+            <li><strong>ROI estimé :</strong> ${hoursFmt(roi.hoursSaved)} gagnées / mois, ${eur(roi.netMonthly)} nets / mois, rentabilité estimée en ${payback}.</li>
+          </ul>`;
+        el('summaryTitle').textContent = 'Validation finale';
+        el('stepSummary').textContent = 'On a gardé une présentation sobre à l’écran, sans perdre les vraies questions d’analyse ni les éléments utiles pour transformer la discussion en proposition.';
+      }
+    }
+
+    function renderStep() {
+      Object.keys(steps).forEach(k => el('group'+k).classList.toggle('active', Number(k)===currentStep));
+      const s = steps[currentStep];
+      el('stepKicker').textContent = s.kicker;
+      el('stepTitle').textContent = s.title;
+      el('stepIntro').textContent = s.intro;
+      el('heroTitle').textContent = s.heroTitle;
+      el('heroText').textContent = s.heroText;
+      el('mainQuestion').textContent = s.question;
+      el('mainQuestionHint').textContent = s.hint;
+      el('statusBadge').textContent = `Statut : étape ${currentStep}`;
+      el('prevStep').style.visibility = currentStep === 1 ? 'hidden' : 'visible';
+      el('nextStep').textContent = currentStep === 4 ? 'Terminé' : 'Étape suivante';
+      renderProgress();
+      updateSummary();
+    }
+
+    function fillDemo() {
+      el('company').value = 'PME de services BTP';
+      el('sector').value = 'Gestion des demandes, devis et relances';
+      el('team').value = 'Dirigeant + assistante + commercial';
+      el('process').value = 'Traitement des demandes entrantes';
+      el('triggerNeed').value = 'Les demandes arrivent de plusieurs côtés, certaines sont traitées tard, et le dirigeant a le sentiment de courir après les infos.';
+      el('workflowNow').value = 'Une demande arrive, elle est lue, reformulée à la main, transmise, parfois relancée, puis recopiée dans plusieurs outils avant le devis.';
+      el('toolsNow').value = 'Gmail, Excel, téléphone, logiciel devis';
+      el('owners').value = 'Assistante, commercial, dirigeant';
+      el('frequencyLabel').value = 'Chaque jour';
+      el('timePer').value = '20 à 30 min';
+      el('pain').value = 'Ressaisie, informations dispersées, relances manuelles, manque de suivi quand il y a beaucoup d’entrées.';
+      el('impact').value = 'Perte de temps, risque d’oubli, délai plus long pour répondre, impression de désorganisation côté client.';
+      el('priority').value = 'Ce sujet touche directement la réactivité commerciale et soulage plusieurs personnes à la fois.';
+      el('objective').value = 'Répondre plus vite et éviter les oublis';
+      el('solutionTrigger').value = 'Arrivée d’un mail ou d’un formulaire';
+      el('sources').value = 'Gmail, formulaire web, Airtable';
+      el('result').value = 'Une demande propre, centralisée, priorisée et suivie';
+      el('automate').value = 'Collecte automatique des demandes, tri selon le type de besoin, création d’une fiche structurée, notification interne, relance simple';
+      el('human').value = 'La validation finale reste côté équipe';
+      el('toolsFuture').value = 'Gmail, n8n, Airtable, outil de devis';
+      el('version1').value = 'Collecte + tri + notification + fiche de suivi';
+      el('quickwin').value = '2 à 4 h gagnées / semaine';
+      el('complexity').value = 'Faible';
+      el('limits').value = 'Pas d’intégration ERP complète dans la V1';
+      el('volumeMonthly').value = 80;
+      el('minutesNow').value = 20;
+      el('minutesAfter').value = 7;
+      el('hourlyRate').value = 40;
+      el('errorCost').value = 80;
+      el('projectCost').value = 1200;
+      refreshSolution();
+      updateSummary();
+    }
+
+    function clearAll() {
+      document.querySelectorAll('input, textarea').forEach(i => i.value = '');
+      document.querySelectorAll('select').forEach(s => s.selectedIndex = 0);
+      roi.hoursSaved = roi.monthlyTimeValue = roi.netMonthly = 0; roi.breakEven = null;
+      el('hoursSaved').textContent = '-';
+      el('timeValue').textContent = '-';
+      el('netMonthly').textContent = '-';
+      el('breakEven').textContent = '-';
+      el('beforeList').innerHTML = '<li>Le process “Processus non précisé” repose encore sur plusieurs étapes manuelles.</li><li>Les frictions actuelles restent à préciser.</li>';
+      el('afterList').innerHTML = '<li>Le déclencheur “à préciser” lance une première chaîne utile.</li><li>Une partie du flux est fiabilisée via les outils déjà en place.</li><li>La validation finale reste côté équipe.</li>';
+      el('gainsList').innerHTML = '<li>Résultat attendu à préciser.</li><li>Quick win à préciser.</li><li>V1 recommandée : à préciser.</li>';
+      el('finalSummary').innerHTML = '<ul><li>La synthèse finale apparaîtra ici.</li></ul>';
+      currentStep = 1;
+      renderStep();
+    }
+
+    el('nextStep').addEventListener('click', () => { if (currentStep < 4) { currentStep++; renderStep(); } });
+    el('prevStep').addEventListener('click', () => { if (currentStep > 1) { currentStep--; renderStep(); } });
+    el('fillDemo').addEventListener('click', fillDemo);
+    el('clearAll').addEventListener('click', clearAll);
+    el('printBtn').addEventListener('click', () => window.print());
+    el('refreshSolution').addEventListener('click', () => { refreshSolution(); updateSummary(); });
+    document.querySelectorAll('input, textarea, select').forEach(i => i.addEventListener('input', updateSummary));
+    document.querySelectorAll('select').forEach(i => i.addEventListener('change', updateSummary));
+    renderStep();
+  </script>
+</body>
+</html>
