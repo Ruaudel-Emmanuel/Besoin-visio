@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Atelier ROI visio V2.1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --text-sm: clamp(0.9rem, 0.85rem + 0.2vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.2vw, 1.1rem);
+      --text-lg: clamp(1.2rem, 1rem + 0.6vw, 1.5rem);
+      --text-xl: clamp(1.7rem, 1.2rem + 1.5vw, 2.6rem);
+      --text-2xl: clamp(2.2rem, 1.5rem + 2.5vw, 4rem);
+      --space-2: .5rem; --space-3: .75rem; --space-4: 1rem; --space-5: 1.25rem; --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem;
+      --radius-md: .75rem; --radius-lg: 1rem; --radius-xl: 1.25rem;
+      --bg: #f7f6f2; --surface: #fcfbf8; --surface-2: #f1eee8; --border: #d7d2ca; --text: #25221d; --muted: #706d67; --primary: #01696f; --warm: #f4e7dc; --green: #e2edd8;
+      --shadow: 0 18px 45px rgba(32, 28, 22, 0.08);
+      --font-body: 'Instrument Sans', sans-serif; --font-display: 'Newsreader', serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: linear-gradient(180deg, #f7f6f2 0%, #f1eee8 100%); color: var(--text); font-family: var(--font-body); }
+    button, input, textarea, select { font: inherit; }
+    .shell { max-width: 1180px; margin: 0 auto; padding: var(--space-6); }
+    .panel { background: rgba(252,251,248,.96); border: 1px solid rgba(37,34,29,.08); border-radius: var(--radius-xl); box-shadow: var(--shadow); }
+    .topbar { display:flex; justify-content:space-between; align-items:center; gap:var(--space-4); padding:var(--space-4) var(--space-5); margin-bottom:var(--space-6); position:sticky; top:10px; z-index:10; backdrop-filter: blur(10px); }
+    .brand { display:flex; align-items:center; gap:12px; }
+    .logo { width:42px; height:42px; border-radius:12px; background:var(--primary); color:#fff; display:grid; place-items:center; font-weight:700; }
+    .actions { display:flex; gap:10px; flex-wrap:wrap; }
+    button { border:1px solid rgba(37,34,29,.1); background:#fff; border-radius:999px; padding:.8rem 1rem; cursor:pointer; color:var(--text); }
+    button.primary { background:var(--primary); color:#fff; border-color:transparent; }
+    .hero { padding: var(--space-8); margin-bottom: var(--space-6); }
+    .hero h1 { margin:0 0 var(--space-3); font-family:var(--font-display); font-size:var(--text-2xl); line-height:1.02; max-width: 12ch; }
+    .hero p { margin:0; max-width: 60ch; color:var(--muted); font-size: var(--text-base); }
+    .progress { display:grid; grid-template-columns: repeat(4, 1fr); gap:12px; margin-top: var(--space-6); }
+    .progress-card { background: var(--surface-2); padding: var(--space-4); border-radius: var(--radius-lg); border:1px solid rgba(37,34,29,.06); }
+    .progress-card.active { background: var(--primary); color:#fff; }
+    .main { padding: var(--space-8); }
+    .kicker { color: var(--muted); text-transform: uppercase; letter-spacing: .08em; font-size: .82rem; font-weight: 700; margin-bottom: var(--space-3); }
+    .step-title { font-size: var(--text-xl); margin:0 0 var(--space-3); }
+    .step-intro { color: var(--muted); max-width: 60ch; margin: 0 0 var(--space-8); }
+    .focus-box { background: var(--warm); border:1px solid rgba(37,34,29,.06); padding: var(--space-6); border-radius: var(--radius-lg); margin-bottom: var(--space-6); }
+    .focus-box strong { display:block; font-size: var(--text-lg); margin-bottom: 8px; }
+    .field-group { display:none; }
+    .field-group.active { display:block; }
+    .field { display:flex; flex-direction:column; gap:8px; margin-bottom: var(--space-5); }
+    .field label { font-size: var(--text-sm); font-weight: 600; }
+    .field input, .field textarea, .field select { width:100%; border:1px solid var(--border); border-radius:14px; background:#fff; padding: 1rem; color:var(--text); }
+    .field textarea { min-height: 110px; resize: vertical; }
+    .mini-note { margin-top: -6px; color: var(--muted); font-size: var(--text-sm); }
+    .summary { margin-top: var(--space-8); padding: var(--space-6); border-radius: var(--radius-lg); background: var(--green); }
+    .summary h3 { margin:0 0 var(--space-3); }
+    .summary p { margin:0; }
+    .step-footer { display:flex; justify-content:space-between; align-items:center; gap:var(--space-4); flex-wrap:wrap; margin-top: var(--space-8); }
+    .badge { display:inline-flex; align-items:center; gap:8px; background:#fff; border:1px solid rgba(37,34,29,.08); padding:.55rem .85rem; border-radius:999px; color:var(--muted); }
+    .roi-cards { display:grid; grid-template-columns: repeat(4,1fr); gap:var(--space-4); margin-top: var(--space-6); }
+    .roi-card { padding: var(--space-5); border-radius: var(--radius-lg); background: var(--surface-2); }
+    .roi-card strong { display:block; font-family: var(--font-display); font-size: var(--text-lg); margin-top: 8px; }
+    .final-box { background:#fff; border:1px dashed rgba(1,105,111,.35); border-radius: var(--radius-lg); padding: var(--space-6); }
+    .final-box ul { margin:0; padding-left: 1rem; }
+    .final-box li { margin-bottom: 8px; }
+    @media (max-width: 900px) { .progress, .roi-cards { grid-template-columns: 1fr; } }
+    @media (max-width: 760px) { .shell { padding: var(--space-4); } .topbar { position:static; } .hero, .main { padding: var(--space-5); } .hero h1 { max-width:none; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="topbar panel">
+      <div class="brand">
+        <div class="logo">R</div>
+        <div>
+          <div><strong>Rennesdev.fr</strong> · Atelier ROI visio V2.1</div>
+          <small style="color:#706d67;">Version écran allégée pour partage pendant la visio</small>
+        </div>
+      </div>
+      <div class="actions">
+        <button id="fillDemo">Exemple</button>
+        <button id="clearAll">Vider</button>
+        <button id="printBtn" class="primary">Imprimer / PDF</button>
+      </div>
+    </div>
+
+    <section class="hero panel">
+      <h1 id="heroTitle">Comprendre ce qui ralentit vraiment.</h1>
+      <p id="heroText">Une étape à la fois. On clarifie le besoin, on dessine une première solution, puis on estime si cela vaut le coup.</p>
+      <div class="progress" id="progressBar"></div>
+    </section>
+
+    <section class="panel main">
+      <div class="kicker" id="stepKicker">Étape 1</div>
+      <h2 class="step-title" id="stepTitle">Le besoin réel</h2>
+      <p class="step-intro" id="stepIntro">On commence par le terrain, pas par la technique.</p>
+
+      <div class="focus-box">
+        <strong id="mainQuestion">Qu’est-ce qui vous fait perdre du temps aujourd’hui ?</strong>
+        <div id="mainQuestionHint" class="mini-note">Répondre simplement, avec des mots du quotidien.</div>
+      </div>
+
+      <div id="group1" class="field-group active">
+        <div class="field"><label for="process">Processus concerné</label><input id="process" placeholder="Ex. traitement des demandes entrantes" /></div>
+        <div class="field"><label for="pain">Ce qui bloque le plus</label><textarea id="pain" placeholder="Ex. ressaisie, oublis, manque de suivi, allers-retours..."></textarea></div>
+        <div class="field"><label for="impact">Conséquence concrète</label><textarea id="impact" placeholder="Ex. retards, charge mentale, image client, opportunités perdues..."></textarea></div>
+      </div>
+
+      <div id="group2" class="field-group">
+        <div class="field"><label for="objective">Objectif principal</label><input id="objective" placeholder="Ex. répondre plus vite et éviter les oublis" /></div>
+        <div class="field"><label for="automate">Ce qu’on peut automatiser en premier</label><textarea id="automate" placeholder="Ex. collecte, tri, notification, création d’une fiche de suivi..."></textarea></div>
+        <div class="field"><label for="human">Ce qui reste humain</label><input id="human" placeholder="Ex. validation commerciale" /></div>
+      </div>
+
+      <div id="group3" class="field-group">
+        <div class="field"><label for="volumeMonthly">Volume mensuel</label><input id="volumeMonthly" type="number" min="0" step="1" placeholder="Ex. 80" /></div>
+        <div class="field"><label for="minutesNow">Temps actuel par occurrence (minutes)</label><input id="minutesNow" type="number" min="0" step="1" placeholder="Ex. 20" /></div>
+        <div class="field"><label for="minutesAfter">Temps futur estimé (minutes)</label><input id="minutesAfter" type="number" min="0" step="1" placeholder="Ex. 7" /></div>
+        <div class="field"><label for="hourlyRate">Valeur horaire retenue (€)</label><input id="hourlyRate" type="number" min="0" step="1" placeholder="Ex. 40" /></div>
+        <div class="field"><label for="errorCost">Erreurs évitées / mois (€)</label><input id="errorCost" type="number" min="0" step="1" placeholder="Ex. 80" /></div>
+        <div class="field"><label for="projectCost">Coût projet (€)</label><input id="projectCost" type="number" min="0" step="1" placeholder="Ex. 1200" /></div>
+      </div>
+
+      <div id="group4" class="field-group">
+        <div class="final-box" id="finalSummary">
+          <ul><li>La synthèse finale apparaîtra ici.</li></ul>
+        </div>
+      </div>
+
+      <div id="roiZone" style="display:none;">
+        <div class="roi-cards">
+          <div class="roi-card"><span style="color:#706d67;">Heures gagnées / mois</span><strong id="hoursSaved">-</strong></div>
+          <div class="roi-card"><span style="color:#706d67;">Valeur mensuelle</span><strong id="timeValue">-</strong></div>
+          <div class="roi-card"><span style="color:#706d67;">Gain net mensuel</span><strong id="netMonthly">-</strong></div>
+          <div class="roi-card"><span style="color:#706d67;">Rentabilité estimée</span><strong id="breakEven">-</strong></div>
+        </div>
+      </div>
+
+      <div class="summary">
+        <h3 id="summaryTitle">Reformulation de l’étape</h3>
+        <p id="stepSummary">La reformulation courte apparaîtra ici pendant l’échange.</p>
+      </div>
+
+      <div class="step-footer">
+        <span class="badge" id="statusBadge">Statut : étape 1</span>
+        <div class="actions">
+          <button id="prevStep">Retour</button>
+          <button id="nextStep" class="primary">Étape suivante</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const steps = {
+      1: {
+        kicker: 'Étape 1', title: 'Le besoin réel', intro: 'On commence par le terrain, pas par la technique.',
+        heroTitle: 'Comprendre ce qui ralentit vraiment.',
+        heroText: 'Une étape à la fois. On clarifie le besoin, on dessine une première solution, puis on estime si cela vaut le coup.',
+        question: 'Qu’est-ce qui vous fait perdre du temps aujourd’hui ?', hint: 'Répondre simplement, avec des mots du quotidien.', progress: 'Besoin'
+      },
+      2: {
+        kicker: 'Étape 2', title: 'La première solution', intro: 'On cherche une V1 simple, utile et rassurante.',
+        heroTitle: 'Dessiner une première amélioration crédible.', heroText: 'Pas besoin de viser grand. Une première version utile suffit pour décider.',
+        question: 'Qu’est-ce qu’on peut simplifier en premier ?', hint: 'L’idée est d’enlever une partie du travail répétitif, pas de tout remplacer.', progress: 'Solution'
+      },
+      3: {
+        kicker: 'Étape 3', title: 'L’intérêt économique', intro: 'On prend des hypothèses simples pour voir si le sujet mérite d’avancer.',
+        heroTitle: 'Mettre un chiffre simple sur l’intérêt du projet.', heroText: 'Temps gagné, valeur du temps, coût projet : juste de quoi prendre une décision.',
+        question: 'Si on améliore ce process, combien de temps peut-on récupérer ?', hint: 'On reste volontairement prudent dans les chiffres.', progress: 'ROI'
+      },
+      4: {
+        kicker: 'Étape 4', title: 'La synthèse finale', intro: 'On reformule ensemble le besoin, la solution et l’intérêt du projet.',
+        heroTitle: 'Terminer avec une lecture claire et rassurante.', heroText: 'Le but est de repartir avec une prochaine étape compréhensible.',
+        question: 'Est-ce que cette synthèse reflète bien votre réalité ?', hint: 'On valide ensemble avant de parler de suite.', progress: 'Synthèse'
+      }
+    };
+    let currentStep = 1;
+    const roi = { hoursSaved:0, monthlyTimeValue:0, netMonthly:0, breakEven:null };
+    const eur = (n) => new Intl.NumberFormat('fr-FR', { style:'currency', currency:'EUR', maximumFractionDigits:0 }).format(n || 0);
+    const hoursFmt = (n) => `${(Math.round((n || 0) * 10) / 10).toLocaleString('fr-FR')} h`;
+    const el = id => document.getElementById(id);
+
+    function renderProgress() {
+      el('progressBar').innerHTML = Object.keys(steps).map(k => `<div class="progress-card ${Number(k)===currentStep?'active':''}"><strong>${k}</strong><div>${steps[k].progress}</div></div>`).join('');
+    }
+
+    function updateSummary() {
+      if (currentStep === 1) {
+        el('summaryTitle').textContent = 'Reformulation du besoin';
+        el('stepSummary').textContent = `${el('process').value || 'Le process à clarifier'} pose surtout problème à cause de ${el('pain').value || 'points de friction à préciser'}, avec comme conséquence ${el('impact').value || 'des impacts à préciser'}.`;
+      } else if (currentStep === 2) {
+        el('summaryTitle').textContent = 'Reformulation de la solution';
+        el('stepSummary').textContent = `Une première version pourrait viser ${el('objective').value || 'un objectif à préciser'}, en automatisant ${el('automate').value || 'la partie répétitive à préciser'}, tout en gardant ${el('human').value || 'une validation humaine'} côté équipe.`;
+      } else if (currentStep === 3) {
+        calculateRoi();
+        el('summaryTitle').textContent = 'Lecture ROI';
+        el('stepSummary').textContent = `${el('process').value || 'Ce process'} pourrait libérer environ ${hoursFmt(roi.hoursSaved)} par mois, soit ${eur(roi.monthlyTimeValue)} de valeur mensuelle, avec une rentabilité estimée à ${roi.breakEven ? roi.breakEven.toFixed(1).replace('.', ',') + ' mois' : 'confirmer'}.`;
+      } else {
+        const payback = roi.breakEven ? roi.breakEven.toFixed(1).replace('.', ',') + ' mois' : 'à confirmer';
+        const text = `
+          <ul>
+            <li><strong>Besoin :</strong> ${el('process').value || 'à préciser'}.</li>
+            <li><strong>Point de friction principal :</strong> ${el('pain').value || 'à préciser'}.</li>
+            <li><strong>V1 proposée :</strong> ${el('objective').value || 'à préciser'}.</li>
+            <li><strong>Ce qu’on automatise :</strong> ${el('automate').value || 'à préciser'}.</li>
+            <li><strong>Ce qui reste humain :</strong> ${el('human').value || 'à préciser'}.</li>
+            <li><strong>ROI estimé :</strong> ${hoursFmt(roi.hoursSaved)} gagnées / mois, ${eur(roi.netMonthly)} nets / mois, rentabilité estimée en ${payback}.</li>
+            <li><strong>Prochaine étape :</strong> valider une V1 cadrée et chiffrée.</li>
+          </ul>`;
+        el('finalSummary').innerHTML = text;
+        el('summaryTitle').textContent = 'Validation finale';
+        el('stepSummary').textContent = 'On a clarifié le besoin, dessiné une première solution et donné un ordre de grandeur du retour sur investissement.';
+      }
+    }
+
+    function calculateRoi() {
+      const volume = Number(el('volumeMonthly').value || 0);
+      const minutesNow = Number(el('minutesNow').value || 0);
+      const minutesAfter = Number(el('minutesAfter').value || 0);
+      const hourlyRate = Number(el('hourlyRate').value || 0);
+      const errorCost =  Number(el('errorCost').value || 0);
+      const projectCost = Number(el('projectCost').value || 0);
+      roi.hoursSaved = Math.max(0, (volume * minutesNow - volume * minutesAfter) / 60);
+      roi.monthlyTimeValue = roi.hoursSaved * hourlyRate;
+      roi.netMonthly = roi.monthlyTimeValue + errorCost;
+      roi.breakEven = roi.netMonthly > 0 ? projectCost / roi.netMonthly : null;
+      el('hoursSaved').textContent = hoursFmt(roi.hoursSaved);
+      el('timeValue').textContent = eur(roi.monthlyTimeValue);
+      el('netMonthly').textContent = eur(roi.netMonthly);
+      el('breakEven').textContent = roi.breakEven ? `${roi.breakEven.toFixed(1).replace('.', ',')} mois` : 'Non défini';
+    }
+
+    function renderStep() {
+      Object.keys(steps).forEach(k => el('group'+k).classList.toggle('active', Number(k)===currentStep));
+      const s = steps[currentStep];
+      el('stepKicker').textContent = s.kicker;
+      el('stepTitle').textContent = s.title;
+      el('stepIntro').textContent = s.intro;
+      el('heroTitle').textContent = s.heroTitle;
+      el('heroText').textContent = s.heroText;
+      el('mainQuestion').textContent = s.question;
+      el('mainQuestionHint').textContent = s.hint;
+      el('statusBadge').textContent = `Statut : étape ${currentStep}`;
+      el('roiZone').style.display = currentStep === 3 ? 'block' : 'none';
+      el('prevStep').style.visibility = currentStep === 1 ? 'hidden' : 'visible';
+      el('nextStep').textContent = currentStep === 4 ? 'Terminé' : 'Étape suivante';
+      renderProgress();
+      updateSummary();
+    }
+
+    function fillDemo() {
+      el('process').value = 'Traitement des demandes entrantes';
+      el('pain').value = 'Ressaisie, oublis, informations dispersées, relances manuelles.';
+      el('impact').value = 'Retards, charge mentale, délais de réponse plus longs et image moins fluide côté client.';
+      el('objective').value = 'Répondre plus vite et éviter les oublis';
+      el('automate').value = 'Collecte automatique, tri, création d’une fiche structurée et notification interne.';
+      el('human').value = 'Validation commerciale avant devis';
+      el('volumeMonthly').value = 80;
+      el('minutesNow').value = 20;
+      el('minutesAfter').value = 7;
+      el('hourlyRate').value = 40;
+      el('errorCost').value = 80;
+      el('projectCost').value = 1200;
+      updateSummary();
+    }
+
+    function clearAll() {
+      document.querySelectorAll('input, textarea').forEach(i => i.value = '');
+      roi.hoursSaved = roi.monthlyTimeValue = roi.netMonthly = 0; roi.breakEven = null;
+      el('finalSummary').innerHTML = '<ul><li>La synthèse finale apparaîtra ici.</li></ul>';
+      currentStep = 1;
+      renderStep();
+    }
+
+    el('nextStep').addEventListener('click', () => { if (currentStep < 4) { currentStep++; renderStep(); } });
+    el('prevStep').addEventListener('click', () => { if (currentStep > 1) { currentStep--; renderStep(); } });
+    el('fillDemo').addEventListener('click', fillDemo);
+    el('clearAll').addEventListener('click', clearAll);
+    el('printBtn').addEventListener('click', () => window.print());
+    document.querySelectorAll('input, textarea').forEach(i => i.addEventListener('input', updateSummary));
+    renderStep();
+  </script>
+</body>
+</html>
