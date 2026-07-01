@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>atelier-roi-visio-v2-8-fr</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#f3efe8; --surface:#fbfaf7; --surface-2:#ece7df; --border:#d8d0c4; --text:#211c18; --muted:#756d65; --primary:#0d767d; --soft:#dbe8e5; --warm:#efe1d2; --good:#dde8db; --warning:#f8edd0;
+      --radius:18px; --radius-sm:12px; --shadow:0 18px 45px rgba(32,28,22,.08);
+      --font-body:'Instrument Sans',sans-serif; --font-display:'Newsreader',serif;
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:var(--font-body);background:linear-gradient(180deg,#f7f6f2 0%,#f1eee8 100%);color:var(--text)}
+    button,input,textarea,select{font:inherit} .shell{max-width:1560px;margin:0 auto;padding:26px}
+    .panel{background:rgba(252,251,248,.96);border:1px solid rgba(38,34,29,.08);border-radius:22px;box-shadow:var(--shadow)}
+    .topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 20px;margin-bottom:20px;position:sticky;top:10px;z-index:20;backdrop-filter:blur(10px)}
+    .brand{display:flex;align-items:center;gap:12px}.logo{width:42px;height:42px;border-radius:12px;background:var(--primary);color:#fff;display:grid;place-items:center;font-weight:700}
+    .actions{display:flex;gap:10px;flex-wrap:wrap}.btn{border:1px solid rgba(38,34,29,.1);background:#fff;padding:.82rem 1rem;border-radius:999px;cursor:pointer;transition:.18s ease}.btn:hover{transform:translateY(-1px)}.btn.primary{background:var(--primary);color:#fff;border-color:transparent}.btn.ghost{background:transparent}.btn.warn{background:#fff8ef;border-color:rgba(136,88,20,.18)}.btn.success{background:#edf7ee;border-color:rgba(52,110,58,.18)}
+    .hero{padding:34px 34px 30px;margin-bottom:22px;position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(251,250,247,.98) 0%,rgba(246,242,236,.96) 100%)}.hero::before{content:'';position:absolute;inset:auto -8% -28% 48%;height:360px;background:radial-gradient(circle at center, rgba(13,118,125,.11), rgba(13,118,125,0) 62%);pointer-events:none}.hero::after{content:'';position:absolute;left:-8%;top:-16%;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle at center, rgba(93,74,45,.06), rgba(93,74,45,0) 70%);pointer-events:none}.hero h1{position:relative;z-index:1;margin:0 0 16px;font-family:var(--font-display);font-size:clamp(3.4rem,2rem + 3vw,6.5rem);line-height:.9;max-width:14ch;letter-spacing:-.04em}.hero p{position:relative;z-index:1;margin:0;color:var(--muted);max-width:92ch;font-size:1.1rem;line-height:1.7}
+    .modebar{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-top:22px;flex-wrap:wrap}.toggle{display:inline-flex;background:var(--surface-2);padding:5px;border-radius:999px;border:1px solid rgba(38,34,29,.08);box-shadow:inset 0 1px 0 rgba(255,255,255,.55)}.toggle button{border:none;background:transparent;padding:.65rem .95rem;border-radius:999px;cursor:pointer}.toggle button.active{background:var(--primary);color:#fff}
+    .progress-wrap{margin-top:26px;overflow:hidden;position:relative}.progress{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;align-items:end}.progress::before{content:'';position:absolute;left:0;right:0;bottom:18px;height:1px;background:linear-gradient(90deg,rgba(38,34,29,.04),rgba(38,34,29,.12),rgba(38,34,29,.04));pointer-events:none}.progress-card{height:126px;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;background:rgba(231,236,234,.72);padding:18px 20px;border-radius:18px;border:1px solid rgba(38,34,29,.06);cursor:pointer;text-align:left;transition:transform .42s cubic-bezier(.22,1,.36,1),background .24s ease,color .24s ease,border-color .24s ease,box-shadow .3s ease;position:relative;backdrop-filter:blur(8px);box-shadow:0 10px 24px rgba(34,28,22,.04)}.progress-card .num{font-weight:700;font-size:1.08rem;line-height:1}.progress-card .label{font-size:1.14rem;line-height:1.12}.progress-card.active{background:linear-gradient(180deg,#0d767d 0%,#0a666c 100%);color:#fff;border-color:transparent;box-shadow:0 18px 34px rgba(13,118,125,.22)}.progress-card.done{background:#e8efe9}.progress-card:hover{transform:translateY(-4px)}.progress-card.offset-up{transform:translateY(-18px)}.progress-card.offset-down{transform:translateY(10px)}.progress-card.active.offset-up{transform:translateY(-22px)}.progress-card.active.offset-down{transform:translateY(6px)}
+    .main{padding:30px;min-height:760px}.kicker{text-transform:uppercase;letter-spacing:.08em;font-size:.82rem;font-weight:700;color:var(--muted);margin-bottom:10px}.title{font-size:clamp(1.6rem,1.2rem + 1vw,2.3rem);margin:0 0 10px}.intro{margin:0 0 24px;color:var(--muted);max-width:68ch}
+    .focus{background:var(--warm);padding:20px;border-radius:18px;border:1px solid rgba(38,34,29,.06);margin-bottom:22px}.focus strong{display:block;font-size:1.2rem;margin-bottom:8px}
+    .group{display:none}.group.active{display:block}.grid-2,.grid-3,.grid-4{display:grid;gap:16px}.grid-2{grid-template-columns:1fr 1fr}.grid-3{grid-template-columns:repeat(3,1fr)}.grid-4{grid-template-columns:repeat(4,1fr)}
+    .field{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}.field label{font-size:.95rem;font-weight:600}.field small{color:var(--muted)} .field input,.field textarea,.field select{width:100%;padding:14px 16px;border:1px solid var(--border);border-radius:14px;background:#fff;color:var(--text)} .field textarea{min-height:110px;resize:vertical}
+    .summary{margin-top:26px;padding:22px;border-radius:18px;background:var(--good)} .footer{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:26px}.badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid rgba(38,34,29,.08);padding:.55rem .85rem;border-radius:999px;color:var(--muted)}
+    .compare,.exports{display:grid;gap:16px}.compare{grid-template-columns:repeat(3,1fr);margin-top:20px}.card{padding:18px;border-radius:18px;border:1px solid rgba(38,34,29,.08);background:#fff}.card.soft{background:var(--soft)}.card.warm{background:var(--warm)}.card h3{margin-top:0}
+    .roi{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:20px}.metric{padding:18px;border-radius:18px;background:var(--surface-2)}.metric strong{display:block;font-size:1.45rem;font-family:var(--font-display);margin-top:8px}
+    .notice{background:#fff;border:1px dashed rgba(1,105,111,.35);padding:18px;border-radius:18px;color:var(--text)} .hint{background:var(--warning);padding:14px 16px;border-radius:14px;border:1px solid rgba(136,88,20,.12);color:#5a4825;margin-top:8px}
+    .status-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.status-pill{padding:.55rem .85rem;border-radius:999px;background:#fff;border:1px solid rgba(38,34,29,.08);color:var(--muted)} .status-pill.ok{background:#edf7ee;color:#23512a;border-color:rgba(52,110,58,.15)}
+    .exports{grid-template-columns:repeat(2,1fr);margin-top:20px}.export-box{padding:18px;border-radius:18px;background:var(--surface-2)} .mini{font-size:.92rem;color:var(--muted)} .delivery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
+    .autosave{font-size:.9rem;color:var(--muted)} .consultant-only{display:block} .client-mode .consultant-only{display:none!important} .client-note{display:none} .client-mode .client-note{display:block}
+    dialog{border:none;border-radius:18px;padding:0;max-width:520px;width:calc(100% - 24px);box-shadow:0 24px 70px rgba(0,0,0,.22)} dialog::backdrop{background:rgba(17,17,17,.36)} .dialog-body{padding:22px}.dialog-actions{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;margin-top:18px}
+
+    .report-overlay{position:fixed;inset:0;background:rgba(20,18,16,.42);backdrop-filter:blur(8px);display:none;align-items:flex-start;justify-content:center;padding:24px;z-index:60;overflow:auto}
+    .report-overlay.open{display:flex}
+    .report-shell{width:min(1120px,100%);background:#efeae2;border-radius:28px;box-shadow:0 30px 80px rgba(0,0,0,.22);overflow:hidden;border:1px solid rgba(38,34,29,.08)}
+    .report-toolbar{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 22px;background:#fff;border-bottom:1px solid rgba(38,34,29,.08);position:sticky;top:0;z-index:2}
+    .report-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .report-page{width:210mm;min-height:297mm;margin:24px auto;background:#fff;color:#201c18;box-shadow:0 18px 40px rgba(31,25,20,.12);padding:18mm 16mm 16mm;border-radius:8px;position:relative}.report-page{background-image:linear-gradient(180deg,rgba(255,255,255,1) 0%,rgba(252,249,245,1) 100%)}
+    .report-cover{display:grid;grid-template-columns:1.25fr .75fr;gap:18mm;align-items:end;min-height:255mm;position:relative}.report-cover::before{content:'';position:absolute;inset:0 0 auto auto;width:88mm;height:88mm;border-bottom-left-radius:38mm;background:radial-gradient(circle at top right, rgba(13,118,125,.18), rgba(13,118,125,0) 68%)}
+    .report-brand{display:flex;align-items:center;gap:12px;color:#01696f;font-weight:700;letter-spacing:.02em}.report-brand .mark{width:38px;height:38px;border-radius:12px;background:#01696f;color:#fff;display:grid;place-items:center}
+    .report-eyebrow{text-transform:uppercase;letter-spacing:.16em;font-size:10pt;color:#6f6a64;margin-bottom:10mm}.report-title{font-family:var(--font-display);font-size:30pt;line-height:1.02;margin:0 0 8mm;max-width:11ch}.report-subtitle{font-size:12pt;line-height:1.65;color:#514b45;max-width:42ch}.report-side{background:linear-gradient(180deg,#0f6a70 0%,#0d5156 100%);color:#fff;border-radius:22px;padding:10mm;display:grid;gap:8mm;align-self:stretch}.report-side .big{font-family:var(--font-display);font-size:22pt;line-height:1.05}.report-meta{display:grid;gap:10px}.report-meta .item{padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.18)}
+    .report-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10mm}.report-section{margin-top:10mm;break-inside:avoid}.report-section h2{font-family:var(--font-display);font-size:18pt;margin:0 0 5mm}.report-card{border:1px solid #ddd3c9;border-radius:16px;padding:6mm;background:#fffaf5}.report-card h3{margin:0 0 4mm;font-size:12pt}.report-list{margin:0;padding-left:18px}.report-list li{margin:0 0 2.5mm}.report-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:4mm}.report-kpi{background:#f3efe8;border:1px solid #ddd3c9;border-radius:14px;padding:5mm}.report-kpi span{display:block;color:#6f6a64;font-size:9.5pt}.report-kpi strong{display:block;margin-top:3mm;font-size:16pt;font-family:var(--font-display)}.report-footer{position:absolute;left:16mm;right:16mm;bottom:10mm;display:flex;justify-content:space-between;font-size:9pt;color:#7a736d}.report-note{background:#f4e7dc;border:1px solid #ead7c7;border-radius:16px;padding:5mm;font-size:10pt;line-height:1.55}.report-page-break{break-after:page;page-break-after:always}
+    
+    body[data-theme="cabinet"]{--bg:#f3efe8;--surface:#fbfaf7;--surface-2:#ece7df;--border:#d8d0c4;--text:#211c18;--muted:#756d65;--primary:#0d767d;--soft:#dbe8e5;--warm:#efe1d2;--good:#dde8db;--warning:#f8edd0;}
+    body[data-theme="studio"]{--bg:#f4f0eb;--surface:#fdfbf8;--surface-2:#eee6df;--border:#dccfc4;--text:#241a1f;--muted:#7b6873;--primary:#8b4d66;--soft:#ead8e2;--warm:#f3e3d3;--good:#e4e6d8;--warning:#f7ead4;}
+    body[data-theme="industry"]{--bg:#eef1f0;--surface:#fbfcfb;--surface-2:#e4e9e7;--border:#cfd8d4;--text:#162022;--muted:#5e6d70;--primary:#0e5b66;--soft:#d6e4e6;--warm:#e6ece8;--good:#dbe7df;--warning:#edf0d7;}
+    body[data-theme="studio"] .hero::before{background:radial-gradient(circle at center, rgba(139,77,102,.13), rgba(139,77,102,0) 62%)}
+    body[data-theme="studio"] .progress-card.active{background:linear-gradient(180deg,#8b4d66 0%,#764158 100%);box-shadow:0 18px 34px rgba(139,77,102,.22)}
+    body[data-theme="studio"] .logo, body[data-theme="studio"] .report-brand .mark{background:#8b4d66}
+    body[data-theme="studio"] .report-side{background:linear-gradient(180deg,#8b4d66 0%,#6f3d52 100%)}
+    body[data-theme="industry"] .hero::before{background:radial-gradient(circle at center, rgba(14,91,102,.12), rgba(14,91,102,0) 62%)}
+    body[data-theme="industry"] .progress-card.active{background:linear-gradient(180deg,#0e5b66 0%,#0b4a52 100%);box-shadow:0 18px 34px rgba(14,91,102,.22)}
+    body[data-theme="industry"] .logo, body[data-theme="industry"] .report-brand .mark{background:#0e5b66}
+    body[data-theme="industry"] .report-side{background:linear-gradient(180deg,#0e5b66 0%,#0c474f 100%)}
+
+    @media print{body.report-printing > :not(.report-overlay){display:none!important}.report-overlay{display:block!important;position:static;background:#fff;padding:0;overflow:visible}.report-shell{width:100%;box-shadow:none;border:none;border-radius:0;background:#fff}.report-toolbar{display:none!important}.report-page{box-shadow:none;margin:0 auto;border-radius:0;min-height:auto;break-after:page;page-break-after:always}.report-page:last-child{break-after:auto;page-break-after:auto}@page{size:A4;margin:10mm}}
+    @media print {.topbar,.footer,.actions,.progress,.autosave,dialog,.status-row,.modebar{display:none!important}.shell{max-width:100%;padding:0}.panel{box-shadow:none;border:0;border-radius:0;background:#fff}.group{display:block!important}.hero,.main{padding:0 0 18px}.summary,.notice,.metric,.card,.export-box{break-inside:avoid}}
+    @media (max-width:1000px){.progress,.grid-2,.grid-3,.grid-4,.compare,.roi,.exports,.delivery-grid{grid-template-columns:1fr}} @media (max-width:760px){.shell{padding:16px}.topbar{position:static}.hero,.main{padding:20px}.hero h1{max-width:none}.progress-card{height:92px}}
+  </style>
+</head>
+<body>
+  <div class="shell" id="appShell">
+    <div class="topbar panel">
+      <div class="brand"><div class="logo">R</div><div><div><strong>Rennesdev.fr</strong> · V2.8 Atelier ROI</div><small style="color:#6f6a64">3 thèmes premium + format large PC</small></div></div>
+      <div class="actions">
+        <button class="btn warn consultant-only" id="fillDemo">Exemple</button>
+        <button class="btn ghost consultant-only" id="clearAll">Vider</button>
+        <button class="btn" id="openReport">Rapport client</button><button class="btn" id="gotoExtraction">Extraction</button>
+        <button class="btn primary" id="printBtn">Imprimer / PDF</button>
+      </div>
+    </div>
+
+    <section class="hero panel" id="topAnchor">
+      <h1 id="heroTitle">Transformer une visio en décision claire.</h1>
+      <p id="heroText">Un atelier de cadrage qui aboutit à une synthèse claire, un ordre de grandeur business et un rapport client présentable comme un livrable de cabinet.</p>
+      <div class="modebar">
+        <div class="toggle" aria-label="Sélection du thème" id="themePicker">
+          <button id="themeCabinetBtn" class="active" type="button">Cabinet</button>
+          <button id="themeStudioBtn" type="button">Studio</button>
+          <button id="themeIndustryBtn" type="button">Industriel premium</button>
+        </div>
+        <div class="toggle" aria-label="Mode d'affichage">
+          <button id="modeConsultantBtn" class="active" type="button">Mode consultant</button>
+          <button id="modeClientBtn" type="button">Mode client</button>
+        </div>
+        <div class="status-row">
+          <span class="status-pill ok" id="draftStatus">Brouillon local actif</span>
+          <span class="status-pill" id="saveStatus">Dernière sauvegarde : en attente</span>
+          <span class="status-pill" id="restoreStatus">Aucun brouillon restauré</span>
+        </div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress" id="progressBar"></div>
+      </div>
+    </section>
+
+    <section class="panel main">
+      <div class="kicker" id="stepKicker">Étape 1</div>
+      <h2 class="title" id="stepTitle">Besoin</h2>
+      <p class="intro" id="stepIntro">On part du terrain réel, pas de la solution technique.</p>
+      <div class="focus"><strong id="mainQuestion">Qu'est-ce qui se passe vraiment aujourd'hui ?</strong><div id="mainHint" style="color:#6f6a64">On capture l'existant avant de parler d'automatisation.</div></div>
+      <p class="client-note mini">Version épurée pour le partage d’écran : seules les informations utiles à la décision sont visibles.</p>
+
+      <div class="group active" id="group1">
+        <div class="grid-2">
+          <div class="field"><label>Nom du client</label><input id="clientName" placeholder="Ex. Thermique Pro"></div>
+          <div class="field"><label>Entreprise / activité</label><input id="company" placeholder="Ex. PME, BTP, société de services"></div>
+        </div>
+        <div class="grid-2">
+          <div class="field"><label>Métier ou environnement</label><input id="sector" placeholder="Ex. ADV, RH, support, administratif"></div>
+          <div class="field"><label>Équipe concernée</label><input id="team" placeholder="Ex. dirigeant, assistante, commercial"></div>
+        </div>
+        <div class="field"><label>Processus étudié</label><input id="process" placeholder="Ex. traitement des demandes entrantes"></div>
+        <div class="field"><label>Pourquoi en parler maintenant ?</label><textarea id="whyNow"></textarea></div>
+        <div class="field"><label>Comment cela se passe aujourd'hui, étape par étape ?</label><textarea id="workflowNow"></textarea></div>
+        <div class="grid-2 consultant-only">
+          <div class="field"><label>Outils utilisés aujourd'hui</label><input id="toolsNow" placeholder="Ex. Gmail, Excel, ERP"></div>
+          <div class="field"><label>Qui intervient dans le process ?</label><input id="owners" placeholder="Ex. assistante, dirigeant, commercial"></div>
+        </div>
+        <div class="grid-2">
+          <div class="field"><label>Fréquence</label><select id="frequency"><option value="PLUSIEURS_FOIS_PAR_JOUR">Plusieurs fois par jour</option><option value="CHAQUE_JOUR">Chaque jour</option><option value="CHAQUE_SEMAINE">Chaque semaine</option><option value="CHAQUE_MOIS">Chaque mois</option></select></div>
+          <div class="field"><label>Temps passé par occurrence (minutes)</label><input id="timePer" type="number" min="0" step="1"></div>
+        </div>
+        <div class="grid-2">
+          <div class="field"><label>Ce qui fait perdre du temps</label><textarea id="pain"></textarea></div>
+          <div class="field"><label>Conséquences concrètes</label><textarea id="impact"></textarea></div>
+        </div>
+        <div class="field consultant-only"><label>Pourquoi ce sujet mérite d'être prioritaire</label><textarea id="priority"></textarea></div>
+      </div>
+
+      <div class="group" id="group2">
+        <div class="grid-2">
+          <div class="field"><label>Objectif principal</label><input id="objective"></div>
+          <div class="field"><label>Déclencheur</label><input id="trigger"></div>
+        </div>
+        <div class="grid-2">
+          <div class="field"><label>Sources de données</label><input id="sources"></div>
+          <div class="field"><label>Résultat attendu</label><input id="result"></div>
+        </div>
+        <div class="grid-2">
+          <div class="field"><label>Ce qu'on peut automatiser</label><textarea id="automate"></textarea></div>
+          <div class="field"><label>Ce qui doit rester humain</label><textarea id="human"></textarea></div>
+        </div>
+        <div class="grid-3">
+          <div class="field"><label>Outils à connecter</label><input id="toolsFuture"></div>
+          <div class="field"><label>Livrable V1</label><input id="version1"></div>
+          <div class="field"><label>Quick win</label><input id="quickwin"></div>
+        </div>
+        <div class="grid-2 consultant-only">
+          <div class="field"><label>Complexité perçue</label><select id="complexity"><option>FAIBLE</option><option>MOYENNE</option><option>ELEVEE</option></select></div>
+          <div class="field"><label>Ce qu'on ne traite pas tout de suite</label><input id="limits"></div>
+        </div>
+        <div class="hint">Le bloc Avant / Après / Gains se met à jour automatiquement pendant la saisie et au passage d'étape.</div>
+        <div class="compare">
+          <div class="card"><h3>Avant</h3><ul id="beforeList"><li>Le process actuel repose encore sur plusieurs étapes manuelles.</li></ul></div>
+          <div class="card soft"><h3>Après</h3><ul id="afterList"><li>Un premier déclencheur lance une chaîne utile.</li></ul></div>
+          <div class="card warm"><h3>Gains</h3><ul id="gainsList"><li>Résultat attendu à préciser.</li></ul></div>
+        </div>
+      </div>
+
+      <div class="group" id="group3">
+        <div class="grid-3">
+          <div class="field"><label>Volume mensuel</label><input id="monthlyVolume" type="number" min="0" step="1"></div>
+          <div class="field"><label>Temps actuel / occurrence (minutes)</label><input id="minutesNow" type="number" min="0" step="1"></div>
+          <div class="field"><label>Temps futur / occurrence (minutes)</label><input id="minutesAfter" type="number" min="0" step="1"></div>
+        </div>
+        <div class="grid-3">
+          <div class="field"><label>Valeur horaire (€)</label><input id="hourlyRate" type="number" min="0" step="1"><small>Indique la valeur de votre temps ou le coût chargé estimé d'un employé sur cette tâche.</small></div>
+          <div class="field"><label>Coût mensuel des erreurs évitées (€)</label><input id="errorCost" type="number" min="0" step="1"></div>
+          <div class="field consultant-only"><label>Coût projet (€)</label><input id="projectCost" type="number" min="0" step="1"></div>
+        </div>
+        <div class="roi">
+          <div class="metric"><span style="color:#6f6a64;">Heures gagnées / mois</span><strong id="hoursSaved">-</strong></div>
+          <div class="metric"><span style="color:#6f6a64;">Valeur mensuelle</span><strong id="timeValue">-</strong></div>
+          <div class="metric"><span style="color:#6f6a64;">Gain net mensuel</span><strong id="netMonthly">-</strong></div>
+          <div class="metric"><span style="color:#6f6a64;">Projection 12 mois</span><strong id="annualValue">-</strong></div>
+          <div class="metric"><span style="color:#6f6a64;">Rentabilité estimée</span><strong id="breakEven">-</strong></div>
+        </div>
+      </div>
+
+      <div class="group" id="group4">
+        <div class="notice" id="finalSummary">La synthèse apparaîtra ici.</div>
+        <div class="field consultant-only" style="margin-top:18px"><label>Notes complémentaires / corrections</label><textarea id="notesFinal" placeholder="Ce champ permet d'ajuster la synthèse sans repasser par toutes les étapes."></textarea></div>
+      </div>
+
+      <div class="group" id="group5">
+        <div class="notice">
+          <strong>Limites de la visio</strong><br>
+          Cette visio produit un cadrage, un estimatif ROI et des artefacts de projection réutilisables. Elle ne produit pas une application prête à déployer ni un workflow n8n finalisé. L'implémentation réelle, les credentials, l'intégration API, les tests et le déploiement relèvent d'une prestation de développement distincte.
+        </div>
+        <div class="exports">
+          <div class="export-box">
+            <h3>Package de sortie</h3>
+            <p class="mini">Par défaut, la page n'affiche plus les contenus techniques. Elle sert à déclencher les livrables, pas à montrer des artefacts techniques au client pendant la visio.</p>
+            <div class="actions">
+              <button class="btn primary" id="downloadBundle">Télécharger le pack complet</button>
+              <button class="btn success consultant-only" id="downloadJson">JSON métier</button>
+              <button class="btn success consultant-only" id="downloadPrompt">Prompt LLM</button>
+              <button class="btn success consultant-only" id="downloadN8n">n8n preview</button>
+              <button class="btn" id="openReportFromExtraction">Ouvrir le rapport client</button><button class="btn" id="genPdf">Télécharger le rapport HTML</button>
+            </div>
+            <div class="delivery-grid">
+              <div class="card"><strong>1</strong><p>PDF de synthèse</p></div>
+              <div class="card"><strong>2</strong><p>extraction-projet.json</p></div>
+              <div class="card"><strong>3</strong><p>prompt-llm.md</p></div>
+              <div class="card"><strong>4</strong><p>n8n-preview.json</p></div>
+            </div>
+          </div>
+          <div class="export-box consultant-only">
+            <h3>Option consultant</h3>
+            <p>Le mode consultant laisse visibles les exports unitaires et les champs internes. Le mode client masque ces éléments pour garder un partage d’écran propre et rassurant.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="summary"><strong id="summaryTitle">Reformulation de l'étape</strong><p id="stepSummary">Une reformulation courte apparaîtra ici.</p></div>
+      <div class="footer"><span class="badge" id="statusBadge">Statut : étape 1</span><span class="autosave" id="autosaveLabel">Sauvegarde locale automatique activée</span><div class="actions"><button class="btn" id="prevStep">Retour</button><button class="btn primary" id="nextStep">Étape suivante</button></div></div>
+    </section>
+  </div>
+
+  <dialog id="confirmDialog">
+    <div class="dialog-body">
+      <h3 id="dialogTitle" style="margin-top:0">Confirmation</h3>
+      <p id="dialogMessage">Confirmer cette action ?</p>
+      <div class="dialog-actions">
+        <button class="btn" id="dialogCancel">Annuler</button>
+        <button class="btn primary" id="dialogConfirm">Confirmer</button>
+      </div>
+    </div>
+  </dialog>
+
+
+  <div class="report-overlay" id="reportOverlay" aria-hidden="true">
+    <div class="report-shell">
+      <div class="report-toolbar">
+        <div><strong>Rapport client premium</strong><br><span class="mini">Vue séparée de l'interface de saisie, pensée pour l'impression et le PDF.</span></div>
+        <div class="report-actions">
+          <button class="btn" id="closeReport">Fermer</button>
+          <button class="btn" id="downloadReportHtml">Télécharger HTML</button>
+          <button class="btn primary" id="printReportBtn">Imprimer / PDF</button>
+        </div>
+      </div>
+      <div id="reportMount"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script>
+    const STORAGE_KEY = 'rennesdev-atelier-roi-v25-draft';
+    const MODE_KEY = 'rennesdev-atelier-roi-v25-mode';
+    const THEME_KEY = 'rennesdev-atelier-roi-v28-theme';
+    const el = id => document.getElementById(id);
+    const appShell = el('appShell');
+    const steps = {
+      1:{k:'Étape 1',t:'Besoin',i:'On part du terrain réel, pas de la solution technique.',q:'Qu\'est-ce qui se passe vraiment aujourd\'hui ?',h:'On capture l\'existant avant de parler d\'automatisation.',hero:'Comprendre le process réel avant tout.',herot:'Le but est de structurer le besoin, pas de se précipiter sur les outils.',p:'Besoin'},
+      2:{k:'Étape 2',t:'Solution',i:'On cadre une V1 réaliste et on garde la validation humaine là où elle est utile.',q:'Qu\'est-ce qu\'on peut simplifier en premier ?',h:'On montre une première marche crédible, pas une usine à gaz.',hero:'Transformer le problème en première direction utile.',herot:'On reste dans la découverte, pas dans le delivery final.',p:'Solution'},
+      3:{k:'Étape 3',t:'ROI',i:'On construit un premier ordre de grandeur pour aider à décider.',q:'Quelle valeur peut-on récupérer ?',h:'Le but est d\'estimer, pas de survendre.',hero:'Mettre un ordre de grandeur business sur l\'opportunité.',herot:'Temps gagné et rentabilité aident à décider si le sujet mérite d\'aller plus loin.',p:'ROI'},
+      4:{k:'Étape 4',t:'Synthèse',i:'On termine avec une synthèse métier lisible.',q:'Est-ce que cette synthèse reflète bien la réalité ?',h:'On valide ce qui sera réutilisé ensuite.',hero:'Terminer sur une synthèse claire.',herot:'Cette base servira ensuite aux sorties d\'extraction.',p:'Synthèse'},
+      5:{k:'Étape 5',t:'Extraction',i:'On génère des artefacts réutilisables à partir de la session validée.',q:'Quelles sorties souhaite-t-on produire ?',h:'PDF pour le client, JSON pour la machine, prompt pour le LLM, preview pour n8n.',hero:'Convertir la visio en sorties réutilisables.',herot:'C\'est ici que le package de découverte est généré.',p:'Extraction'}
+    };
+    let currentStep = 1;
+    let currentMode = 'consultant';
+    let currentTheme = 'cabinet';
+    let state = {json:null,prompt:null,n8n:null};
+    let roi={hoursSaved:0,monthlyTimeValue:0,netMonthly:0,annualValue:0,breakEven:null};
+    let saveTimer = null;
+    const eur=n=>new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n||0);
+    const hours=n=>`${(Math.round((n||0)*10)/10).toLocaleString('fr-FR')} h`;
+    const split=t=>(t||'').split(/\n|,|;/).map(v=>v.trim()).filter(Boolean);
+    const hasData=()=>Array.from(document.querySelectorAll('input,textarea')).some(i=>i.value.trim()!=='');
+    const stamp=()=>new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+
+    function showConfirm(title,message,onConfirm){el('dialogTitle').textContent=title; el('dialogMessage').textContent=message; const dialog=el('confirmDialog'); dialog.showModal(); const clean=()=>{el('dialogConfirm').onclick=null; el('dialogCancel').onclick=null;}; el('dialogCancel').onclick=()=>{clean(); dialog.close();}; el('dialogConfirm').onclick=()=>{clean(); dialog.close(); onConfirm&&onConfirm();};}
+    function renderProgress(){el('progressBar').innerHTML=Object.keys(steps).map(k=>{const n=+k; const offset = n===currentStep ? 'offset-up' : (Math.abs(n-currentStep)%2===0 ? 'offset-down' : ''); return `<button class="progress-card ${n===currentStep?'active':''} ${n<currentStep?'done':''} ${offset}" data-step="${k}"><span class="num">${k}</span><span class="label">${steps[k].p}</span></button>`;}).join(''); document.querySelectorAll('.progress-card').forEach(btn=>btn.addEventListener('click',()=>goToStep(+btn.dataset.step)));}
+    function setMode(mode){currentMode = mode; appShell.classList.toggle('client-mode', mode==='client'); el('modeConsultantBtn').classList.toggle('active', mode==='consultant'); el('modeClientBtn').classList.toggle('active', mode==='client'); try{localStorage.setItem(MODE_KEY, mode);}catch(e){} }
+    function restoreMode(){try{const saved=localStorage.getItem(MODE_KEY); if(saved==='client' || saved==='consultant') setMode(saved);}catch(e){}}
+
+    function setTheme(theme){currentTheme=theme; document.body.dataset.theme=theme; ['Cabinet','Studio','Industry'].forEach(name=>{const key='theme'+name+'Btn'; const node=el(key); if(node) node.classList.remove('active');}); if(theme==='cabinet') el('themeCabinetBtn').classList.add('active'); if(theme==='studio') el('themeStudioBtn').classList.add('active'); if(theme==='industry') el('themeIndustryBtn').classList.add('active'); try{localStorage.setItem(THEME_KEY, theme);}catch(e){} }
+    function restoreTheme(){try{const saved=localStorage.getItem(THEME_KEY); if(saved==='cabinet'||saved==='studio'||saved==='industry') setTheme(saved);}catch(e){}}
+
+    function refreshSolution(){const process=el('process').value||'Processus non précisé'; const painList=split(el('pain').value).slice(0,2); const before=[`Le process “${process}” repose encore sur plusieurs étapes manuelles.`,...(painList.length?painList:['Les frictions actuelles restent à préciser.'])]; const after=[`Le déclencheur “${el('trigger').value||'à préciser'}” lance une première chaîne utile.`,`Une partie du flux est fiabilisée via ${el('toolsFuture').value||'les outils déjà en place'}.`,`${(el('human').value||'La validation finale reste côté équipe').replace(/\.$/,'')}.`]; const gains=[`${el('result').value||'Résultat attendu à préciser'}.`,`${el('quickwin').value||'Quick win à préciser'}.`,`V1 recommandée : ${el('version1').value||'à préciser'}.`]; el('beforeList').innerHTML=before.map(x=>`<li>${x}</li>`).join(''); el('afterList').innerHTML=after.map(x=>`<li>${x}</li>`).join(''); el('gainsList').innerHTML=gains.map(x=>`<li>${x}</li>`).join('');}
+    function calculateRoi(){const volume=+el('monthlyVolume').value||0, now=+el('minutesNow').value||0, after=+el('minutesAfter').value||0, rate=+el('hourlyRate').value||0, err=+el('errorCost').value||0, cost=+el('projectCost').value||0; roi.hoursSaved=Math.max(0,(volume*now-volume*after)/60); roi.monthlyTimeValue=roi.hoursSaved*rate; roi.netMonthly=roi.monthlyTimeValue+err; roi.annualValue=roi.netMonthly*12; roi.breakEven=roi.netMonthly>0?cost/roi.netMonthly:null; el('hoursSaved').textContent=hours(roi.hoursSaved); el('timeValue').textContent=eur(roi.monthlyTimeValue); el('netMonthly').textContent=eur(roi.netMonthly); el('annualValue').textContent=eur(roi.annualValue); el('breakEven').textContent=roi.breakEven?`${roi.breakEven.toFixed(1).replace('.',',')} mois`:'Non défini';}
+    function collectDraft(){const fields={}; document.querySelectorAll('input,textarea,select').forEach(i=>fields[i.id]=i.value); return {version:'2.8',savedAt:new Date().toISOString(),currentStep,currentMode,currentTheme,fields};}
+    function applyDraft(draft){if(!draft||!draft.fields) return; Object.entries(draft.fields).forEach(([id,value])=>{const node=el(id); if(node) node.value=value;}); currentStep = draft.currentStep || 1; if(draft.currentMode) setMode(draft.currentMode); if(draft.currentTheme) setTheme(draft.currentTheme); refreshSolution(); calculateRoi(); updateSummary(); renderStep(false);}    
+    function saveDraft(){try{const draft=collectDraft(); localStorage.setItem(STORAGE_KEY, JSON.stringify(draft)); el('saveStatus').textContent=`Dernière sauvegarde : ${stamp()}`; el('restoreStatus').textContent='Brouillon enregistré localement';}catch(e){el('saveStatus').textContent='Sauvegarde locale indisponible';}}
+    function scheduleSave(){clearTimeout(saveTimer); saveTimer=setTimeout(saveDraft, 500);}
+    function restoreDraftOnLoad(){try{const raw=localStorage.getItem(STORAGE_KEY); if(!raw){el('restoreStatus').textContent='Aucun brouillon trouvé'; return;} const draft=JSON.parse(raw); applyDraft(draft); const savedAt = draft.savedAt ? new Date(draft.savedAt).toLocaleString('fr-FR') : 'date inconnue'; el('restoreStatus').textContent=`Brouillon restauré : ${savedAt}`; el('saveStatus').textContent=`Dernière sauvegarde : ${stamp()}`;}catch(e){el('restoreStatus').textContent='Brouillon illisible';}}
+    function clearDraftStorage(){try{localStorage.removeItem(STORAGE_KEY); el('restoreStatus').textContent='Brouillon local supprimé'; el('saveStatus').textContent='Dernière sauvegarde : en attente';}catch(e){}}
+    function buildExtractionJson(){calculateRoi(); refreshSolution(); return {
+      meta:{version:'2.5',generated_at:new Date().toISOString(),source:'atelier-roi-visio',language:'fr',consultant:'Emmanuel Ruaudel',client_name:el('clientName').value||'',session_title:el('process').value||'Atelier ROI',view_mode:currentMode},
+      business_context:{company_activity:el('company').value||'',business_environment:el('sector').value||'',team_involved:split(el('team').value),studied_process:el('process').value||'',why_now:el('whyNow').value||''},
+      current_process:{workflow_step_by_step:split(el('workflowNow').value),tools_used_today:split(el('toolsNow').value),actors_involved:split(el('owners').value),frequency:{label:el('frequency').options[el('frequency').selectedIndex]?.text||'',code:el('frequency').value,estimated_occurrences_per_month:+el('monthlyVolume').value||0},time_spent_per_occurrence_minutes:+el('timePer').value||0},
+      pain_and_priority:{time_wasters:split(el('pain').value),concrete_consequences:split(el('impact').value),why_priority:el('priority').value||''},
+      target_solution:{main_objective:el('objective').value||'',trigger:el('trigger').value||'',data_sources:split(el('sources').value),expected_result:el('result').value||'',what_can_be_automated:split(el('automate').value),what_must_remain_human:split(el('human').value),tools_to_connect:split(el('toolsFuture').value),v1_deliverable:el('version1').value||'',quick_win:el('quickwin').value||'',perceived_complexity:el('complexity').value,out_of_scope_for_now:split(el('limits').value),before_after_gains:{before:[...Array.from(el('beforeList').querySelectorAll('li')).map(li=>li.textContent)],after:[...Array.from(el('afterList').querySelectorAll('li')).map(li=>li.textContent)],gains:[...Array.from(el('gainsList').querySelectorAll('li')).map(li=>li.textContent)]}},
+      roi_estimate:{monthly_volume:+el('monthlyVolume').value||0,current_time_per_occurrence_minutes:+el('minutesNow').value||0,future_time_per_occurrence_minutes:+el('minutesAfter').value||0,hourly_rate_eur:+el('hourlyRate').value||0,monthly_error_cost_avoided_eur:+el('errorCost').value||0,project_cost_eur:+el('projectCost').value||0,hours_saved_per_month:roi.hoursSaved,monthly_time_value_eur:roi.monthlyTimeValue,net_monthly_gain_eur:roi.netMonthly,annual_projection_eur:roi.annualValue,estimated_payback_months:roi.breakEven||0},
+      final_adjustments:{notes_or_corrections:el('notesFinal').value||''},
+      project_scope:{in_scope:['Clarification du besoin','Piste de solution','Estimation ROI','PDF de synthèse','JSON métier','Prompt LLM','JSON n8n preview'],out_of_scope:['Credentials réels','Mapping API final','Tests techniques','Gestion complète des erreurs','Déploiement','Mise en production','Garantie d’import sans revue développeur','Application finale clé en main'],constraints:['Sortie de discovery uniquement','Conserver la validation humaine quand nécessaire'],assumptions:['Les informations manquantes doivent rester explicites','Les previews nécessitent une reprise développeur avant implémentation']},
+      deliverables:{pdf_summary:true,llm_prompt:true,n8n_preview_json:true,production_ready_workflow:false,production_ready_application:false},
+      validation:{client_validated_summary:true,open_questions:[],next_step_recommended:'Cadrage d’implémentation payant ou proposition de développement'}
+    };}
+    function buildPrompt(json){return `# Prompt de génération LLM\n\nTu es un assistant senior en automatisation et en conception logicielle.\n\nTon rôle est de transformer une sortie de discovery structurée en aperçu technique, pas en implémentation prête pour la production.\n\n## Limites importantes\n- Ne dis pas que le résultat est prêt pour la production.\n- N'invente ni credentials, ni endpoints, ni secrets.\n- Respecte strictement le périmètre in scope / out of scope.\n- Reste aligné sur le livrable V1 uniquement.\n- Conserve toutes les validations humaines nécessaires.\n- Si une information manque, explicite les hypothèses.\n\n## Entrée\n\nJSON d'extraction :\n${JSON.stringify(json,null,2)}\n\n## Tâche attendue\n\nÀ partir du JSON ci-dessus, produire :\n1. Une interprétation technique courte du besoin métier.\n2. Une approche de mise en œuvre V1.\n3. Une liste d'hypothèses et de risques.\n4. Une liste de ce qui reste hors périmètre.\n\n## Format de sortie\n\nRetourne un Markdown valide avec seulement ces sections :\n- Besoin métier\n- Proposition V1\n- Hypothèses\n- Risques\n- Hors périmètre\n\nN'ajoute pas de langage marketing.\nNe prétends pas que le workflow ou l'application est connecté à de vrais systèmes.`;}
+    function buildN8n(json){return {name:`Preview - ${json.business_context.studied_process||'Processus non précisé'}`,nodes:[{id:'node-1',name:'Déclencheur',type:'n8n-nodes-base.manualTrigger',typeVersion:1,position:[200,300],parameters:{}},{id:'node-2',name:'Normaliser entrée',type:'n8n-nodes-base.set',typeVersion:3,position:[430,300],parameters:{assignments:{assignments:[{name:'process_name',value:`=${json.business_context.studied_process||'Processus non précisé'}`,type:'string'},{name:'expected_result',value:`=${json.target_solution.expected_result||'À préciser'}`,type:'string'}]}}},{id:'node-3',name:'Validation humaine',type:'n8n-nodes-base.noOp',typeVersion:1,position:[660,300],parameters:{}},{id:'node-4',name:'Action métier',type:'n8n-nodes-base.noOp',typeVersion:1,position:[890,300],parameters:{notes:'Preview uniquement - remplacer par un vrai nœud pendant l’implémentation'}},{id:'node-5',name:'Journal synthèse',type:'n8n-nodes-base.set',typeVersion:3,position:[1120,300],parameters:{assignments:{assignments:[{name:'preview_only',value:'=true',type:'boolean'},{name:'v1_deliverable',value:`=${json.target_solution.v1_deliverable||'À préciser'}`,type:'string'}]}}}],connections:{'Déclencheur':{main:[[{'node':'Normaliser entrée','type':'main','index':0}]]},'Normaliser entrée':{main:[[{'node':'Validation humaine','type':'main','index':0}]]},'Validation humaine':{main:[[{'node':'Action métier','type':'main','index':0}]]},'Action métier':{main:[[{'node':'Journal synthèse','type':'main','index':0}]]}},settings:{executionOrder:'v1'},meta:{templateCredsSetupCompleted:false,previewOnly:true,generatedFrom:'atelier-roi-visio-v2.5-fr'},tags:['preview','discovery','non-production']};}
+    function updateSummary(){refreshSolution(); calculateRoi(); if(currentStep===1){el('summaryTitle').textContent='Reformulation du besoin'; el('stepSummary').textContent=`${el('clientName').value||el('company').value||'Le client'} travaille sur le process “${el('process').value||'à préciser'}” dans ${el('sector').value||'un environnement à préciser'}. Les principaux points de friction sont ${el('pain').value||'à préciser'}, avec des conséquences comme ${el('impact').value||'à préciser'}.`;}
+      else if(currentStep===2){el('summaryTitle').textContent='Reformulation de la solution'; el('stepSummary').textContent=`Une première V1 pourrait viser ${el('objective').value||'un objectif à préciser'}, déclenchée par ${el('trigger').value||'un déclencheur à préciser'}, en automatisant ${el('automate').value||'la partie répétitive à préciser'}, tout en gardant ${el('human').value||'une validation humaine là où nécessaire'}.`;}
+      else if(currentStep===3){el('summaryTitle').textContent='Lecture ROI'; el('stepSummary').textContent=`Ce process pourrait faire gagner environ ${hours(roi.hoursSaved)} par mois, soit ${eur(roi.monthlyTimeValue)} de valeur mensuelle, environ ${eur(roi.annualValue)} sur 12 mois, avec une rentabilité estimée à ${roi.breakEven?roi.breakEven.toFixed(1).replace('.',',')+' mois':'confirmer'}.`;}
+      else if(currentStep===4){el('summaryTitle').textContent='Synthèse finale'; const note = el('notesFinal').value ? `<li><strong>Notes complémentaires :</strong> ${el('notesFinal').value}.</li>` : ''; el('finalSummary').innerHTML=`<ul><li><strong>Client :</strong> ${el('clientName').value||'à préciser'}.</li><li><strong>Processus :</strong> ${el('process').value||'à préciser'}.</li><li><strong>Situation actuelle :</strong> ${el('workflowNow').value||'à préciser'}.</li><li><strong>Point de friction principal :</strong> ${el('pain').value||'à préciser'}.</li><li><strong>Objectif :</strong> ${el('objective').value||'à préciser'}.</li><li><strong>Livrable V1 :</strong> ${el('version1').value||'à préciser'}.</li><li><strong>Quick win :</strong> ${el('quickwin').value||'à préciser'}.</li><li><strong>Projection 12 mois :</strong> ${eur(roi.annualValue)}.</li><li><strong>Rentabilité estimée :</strong> ${roi.breakEven?roi.breakEven.toFixed(1).replace('.',',')+' mois':'à confirmer'}.</li>${note}</ul>`; el('stepSummary').textContent='La visio dispose maintenant d’une matière validée suffisante pour générer des sorties réutilisables.';}
+      else {el('summaryTitle').textContent='Extraction prête'; el('stepSummary').textContent='Ici, on télécharge les livrables sans afficher les contenus techniques à l’écran pendant la visio.';}}
+    function renderStep(scrollTop=true){Object.keys(steps).forEach(k=>el('group'+k).classList.toggle('active',+k===currentStep)); const s=steps[currentStep]; el('stepKicker').textContent=s.k; el('stepTitle').textContent=s.t; el('stepIntro').textContent=s.i; el('mainQuestion').textContent=s.q; el('mainHint').textContent=s.h; el('heroTitle').textContent=s.hero; el('heroText').textContent=s.herot; el('statusBadge').textContent=`Statut : étape ${currentStep}`; el('prevStep').style.visibility=currentStep===1?'hidden':'visible'; el('nextStep').textContent=currentStep===5?'Terminé':'Étape suivante'; renderProgress(); updateSummary(); if(scrollTop) window.scrollTo({top:0,behavior:'smooth'});}    
+    function generateAll(){state.json=buildExtractionJson(); state.prompt=buildPrompt(state.json); state.n8n=buildN8n(state.json);}    
+    function esc(v){return String(v||'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');}
+    function reportList(items, empty='À préciser'){const arr=(items||[]).filter(Boolean); return `<ul class="report-list">${(arr.length?arr:[empty]).map(i=>`<li>${esc(i)}</li>`).join('')}</ul>`;}
+    function buildReportMarkup(){generateAll(); const json=state.json; const today=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'}); return `
+      <section class="report-page report-cover">
+        <div>
+          <div class="report-brand"><div class="mark">R</div><div>Rennesdev.fr</div></div>
+          <div class="report-eyebrow">Atelier ROI automatisation · Rapport client premium</div>
+          <h1 class="report-title">${esc(el('process').value||'Opportunité d’automatisation à qualifier')}</h1>
+          <p class="report-subtitle">Ce rapport synthétise le besoin, la piste de solution, l’ordre de grandeur du retour sur investissement et la prochaine étape recommandée. Il est conçu pour être partagé au client tel quel, indépendamment de l’interface de saisie. [web:327][web:322][web:331]</p>
+        </div>
+        <aside class="report-side">
+          <div class="big">Une restitution premium pour aider le client à décider vite et bien.</div>
+          <div class="report-meta">
+            <div class="item"><strong>Client</strong><br>${esc(el('clientName').value||'À préciser')}</div>
+            <div class="item"><strong>Entreprise</strong><br>${esc(el('company').value||'À préciser')}</div>
+            <div class="item"><strong>Date</strong><br>${esc(today)}</div>
+            <div class="item"><strong>Consultant</strong><br>Emmanuel Ruaudel · Rennesdev.fr</div>
+          </div>
+        </aside>
+        <div class="report-footer"><span>Rapport de découverte</span><span>Rennesdev.fr</span></div>
+      </section>
+      <section class="report-page">
+        <div class="report-section">
+          <h2>Contexte</h2>
+          <div class="report-grid-2">
+            <div class="report-card"><h3>Pourquoi ce sujet revient maintenant</h3><p>${esc(el('whyNow').value||'À préciser')}</p></div>
+            <div class="report-card"><h3>Équipe concernée</h3><p>${esc(el('team').value||'À préciser')}</p></div>
+          </div>
+        </div>
+        <div class="report-section">
+          <h2>Situation actuelle</h2>
+          <div class="report-card"><p>${esc(el('workflowNow').value||'À préciser')}</p></div>
+        </div>
+        <div class="report-section">
+          <div class="report-grid-2">
+            <div class="report-card"><h3>Freins observés</h3>${reportList(split(el('pain').value),'Freins à préciser')}</div>
+            <div class="report-card"><h3>Conséquences business</h3>${reportList(split(el('impact').value),'Conséquences à préciser')}</div>
+          </div>
+        </div>
+        <div class="report-note">La recommandation repose sur une page dédiée à l’impression, avec des règles CSS spécifiques pour les marges, la mise en page et les sauts de page, ce qui améliore la lisibilité du rendu PDF par rapport à l’impression brute d’une interface applicative. [web:327][web:322][web:333]</div>
+        <div class="report-footer"><span>Rapport client premium</span><span>Page 2</span></div>
+      </section>
+      <section class="report-page">
+        <div class="report-section">
+          <h2>Piste de solution V1</h2>
+          <div class="report-grid-2">
+            <div class="report-card"><h3>Objectif</h3><p>${esc(el('objective').value||'À préciser')}</p></div>
+            <div class="report-card"><h3>Résultat attendu</h3><p>${esc(el('result').value||'À préciser')}</p></div>
+          </div>
+        </div>
+        <div class="report-section">
+          <div class="report-grid-2">
+            <div class="report-card"><h3>Ce qui peut être automatisé</h3>${reportList(split(el('automate').value),'À préciser')}</div>
+            <div class="report-card"><h3>Ce qui reste humain</h3>${reportList(split(el('human').value),'À préciser')}</div>
+          </div>
+        </div>
+        <div class="report-section">
+          <div class="report-grid-2">
+            <div class="report-card"><h3>Quick win</h3><p>${esc(el('quickwin').value||'À préciser')}</p></div>
+            <div class="report-card"><h3>Livrable V1 recommandé</h3><p>${esc(el('version1').value||'À préciser')}</p></div>
+          </div>
+        </div>
+        <div class="report-note">Le rapport client reste volontairement orienté décision et cadrage. Les fichiers techniques séparés peuvent être remis ensuite au client ou conservés côté consultant selon son niveau d’autonomie. [web:331][web:322]</div>
+        <div class="report-footer"><span>Rennesdev.fr</span><span>Page 3</span></div>
+      </section>
+      <section class="report-page">
+        <div class="report-section">
+          <h2>Ordre de grandeur du ROI</h2>
+          <div class="report-kpis">
+            <div class="report-kpi"><span>Heures gagnées / mois</span><strong>${esc(hours(roi.hoursSaved))}</strong></div>
+            <div class="report-kpi"><span>Valeur mensuelle</span><strong>${esc(eur(roi.monthlyTimeValue))}</strong></div>
+            <div class="report-kpi"><span>Gain net mensuel</span><strong>${esc(eur(roi.netMonthly))}</strong></div>
+            <div class="report-kpi"><span>Projection 12 mois</span><strong>${esc(eur(roi.annualValue))}</strong></div>
+          </div>
+        </div>
+        <div class="report-section">
+          <div class="report-card">
+            <h3>Lecture simple</h3>
+            <p>Sur la base des hypothèses saisies, ce sujet représente environ ${esc(hours(roi.hoursSaved))} gagnées chaque mois, soit ${esc(eur(roi.monthlyTimeValue))} de valeur de temps récupérée. En intégrant les coûts d’erreurs évités, le gain net mensuel estimé atteint ${esc(eur(roi.netMonthly))}, pour une projection annuelle d’environ ${esc(eur(roi.annualValue))}. ${esc(roi.breakEven?`Le délai de rentabilité estimé est d’environ ${roi.breakEven.toFixed(1).replace('.',',')} mois.`:'Le délai de rentabilité reste à confirmer avec un chiffrage plus complet.')} </p>
+          </div>
+        </div>
+        <div class="report-section">
+          <div class="report-grid-2">
+            <div class="report-card"><h3>Hypothèses de calcul</h3><p>Volume mensuel : ${esc(el('monthlyVolume').value||'0')} · Temps actuel : ${esc(el('minutesNow').value||'0')} min · Temps futur : ${esc(el('minutesAfter').value||'0')} min · Valeur horaire : ${esc(el('hourlyRate').value||'0')} €</p></div>
+            <div class="report-card"><h3>Coût projet indicatif</h3><p>${esc(eur(+el('projectCost').value||0))}</p></div>
+          </div>
+        </div>
+        <div class="report-note">Pour un rendu cohérent à l’impression, les sections sont regroupées par page, les éléments de navigation sont masqués et le document utilise un gabarit A4 dédié. [web:327][web:322][web:319]</div>
+        <div class="report-footer"><span>Rapport client premium</span><span>Page 4</span></div>
+      </section>
+      <section class="report-page">
+        <div class="report-section">
+          <h2>Prochaine étape recommandée</h2>
+          <div class="report-card"><p>La prochaine étape logique est un cadrage d’implémentation ou une proposition de développement dédiée, afin de transformer cette opportunité validée en solution opérationnelle. Le rapport produit ici constitue une base de décision et de priorisation, pas une application finale prête à déployer. [web:328][web:331]</p></div>
+        </div>
+        <div class="report-section">
+          <div class="report-grid-2">
+            <div class="report-card"><h3>Inclus dans cette phase</h3>${reportList(json.project_scope.in_scope)}</div>
+            <div class="report-card"><h3>Hors périmètre</h3>${reportList(json.project_scope.out_of_scope)}</div>
+          </div>
+        </div>
+        <div class="report-section">
+          <div class="report-card"><h3>Notes finales</h3><p>${esc(el('notesFinal').value||'Aucune note complémentaire.')}</p></div>
+        </div>
+        <div class="report-footer"><span>Document généré depuis l’atelier ROI</span><span>Rennesdev.fr</span></div>
+      </section>`;}
+    function renderReport(){el('reportMount').innerHTML = buildReportMarkup();}
+    function openReport(){renderReport(); el('reportOverlay').classList.add('open'); el('reportOverlay').setAttribute('aria-hidden','false');}
+    function closeReport(){el('reportOverlay').classList.remove('open'); el('reportOverlay').setAttribute('aria-hidden','true'); document.body.classList.remove('report-printing');}
+    function downloadReportHtmlFile(){const doc='<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>rapport-client-premium</title><style>'+Array.from(document.querySelectorAll('style')).map(s=>s.innerHTML).join('')+'</style></head><body class="report-printing">'+el('reportOverlay').outerHTML+'</body></html>'; downloadText('rapport-client-premium.html', doc, 'text/html;charset=utf-8');}
+    function buildPdfText(){calculateRoi(); return `Synthèse Atelier ROI\n\nClient : ${el('clientName').value||'À préciser'}\nEntreprise : ${el('company').value||'À préciser'}\nProcessus : ${el('process').value||'À préciser'}\n\nSituation actuelle\n${el('workflowNow').value||'À préciser'}\n\nPoints de friction\n${el('pain').value||'À préciser'}\n\nConséquences\n${el('impact').value||'À préciser'}\n\nObjectif\n${el('objective').value||'À préciser'}\n\nLivrable V1\n${el('version1').value||'À préciser'}\n\nQuick win\n${el('quickwin').value||'À préciser'}\n\nHeures gagnées / mois : ${hours(roi.hoursSaved)}\nValeur mensuelle : ${eur(roi.monthlyTimeValue)}\nGain net mensuel : ${eur(roi.netMonthly)}\nProjection 12 mois : ${eur(roi.annualValue)}\nRentabilité estimée : ${roi.breakEven?roi.breakEven.toFixed(1).replace('.',',')+' mois':'À confirmer'}\n\nNotes complémentaires\n${el('notesFinal').value||'Aucune note complémentaire'}\n`;}
+    async function copyText(text){try{await navigator.clipboard.writeText(text);}catch(e){}}
+    function downloadText(filename, content, type){const blob=new Blob([content],{type}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=filename; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url), 500);}    
+    function ensureGenerated(){if(!state.json || !state.prompt || !state.n8n) generateAll();}
+    function downloadJsonFile(){ensureGenerated(); downloadText('extraction-projet.json', JSON.stringify(state.json,null,2), 'application/json');}
+    function downloadPromptFile(){ensureGenerated(); downloadText('prompt-llm.md', state.prompt, 'text/markdown;charset=utf-8');}
+    function downloadN8nFile(){ensureGenerated(); downloadText('n8n-preview.json', JSON.stringify(state.n8n,null,2), 'application/json');}
+    function downloadPdfFile(){openReport(); downloadReportHtmlFile();}
+    async function downloadBundle(){ensureGenerated(); const zip = new JSZip(); zip.file('synthese-atelier-roi.txt', buildPdfText()); zip.file('extraction-projet.json', JSON.stringify(state.json,null,2)); zip.file('prompt-llm.md', state.prompt); zip.file('n8n-preview.json', JSON.stringify(state.n8n,null,2)); const blob = await zip.generateAsync({type:'blob'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'atelier-roi-package.zip'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url), 500); }
+    function fillDemoData(){el('clientName').value='Thermique Pro';el('company').value='TPE BTP plomberie-chauffage';el('sector').value='Artisanat / devis / relances';el('team').value='Dirigeant, assistante, technicien';el('process').value='Suivi des devis et relances clients';el('whyNow').value='Plusieurs devis partent chaque semaine mais les relances sont irrégulières et certaines opportunités se perdent.';el('workflowNow').value='Le devis est envoyé par mail, puis noté à la main. Les relances dépendent de la mémoire ou des disponibilités. Certaines demandes restent sans suivi clair.';el('toolsNow').value='Email, téléphone, Excel';el('owners').value='Dirigeant, assistante';el('frequency').value='CHAQUE_JOUR';el('timePer').value=20;el('pain').value='Relances oubliées, suivi dispersé, ressaisie manuelle';el('impact').value='Devis non suivis, perte de chiffre d’affaires, charge mentale';el('priority').value='Le sujet touche directement le chiffre d’affaires et la réactivité commerciale';el('objective').value='Fiabiliser le suivi des devis et automatiser les relances simples';el('trigger').value='Envoi d’un devis ou absence de réponse après X jours';el('sources').value='Messagerie, tableau de suivi, formulaire';el('result').value='Un suivi clair avec relances automatiques et visibilité immédiate';el('automate').value='Créer un suivi, déclencher des rappels, centraliser l’information';el('human').value='Validation finale du devis et reprise commerciale personnalisée';el('toolsFuture').value='n8n, Gmail, Airtable ou CRM';el('version1').value='Suivi des devis + rappels automatiques';el('quickwin').value='Ne plus oublier les relances de base';el('complexity').value='FAIBLE';el('limits').value='Pas de connexion ERP en V1';el('monthlyVolume').value=80;el('minutesNow').value=18;el('minutesAfter').value=8;el('hourlyRate').value=50;el('errorCost').value=300;el('projectCost').value=1550;el('notesFinal').value='Prévoir un ton de relance simple et non agressif adapté à une clientèle locale.'; updateSummary(); saveDraft();}
+    function goToStep(step){currentStep=Math.max(1,Math.min(5,step)); saveDraft(); renderStep();}
+    function clearAll(){document.querySelectorAll('input,textarea').forEach(i=>i.value=''); document.querySelectorAll('select').forEach(s=>s.selectedIndex=0); state={json:null,prompt:null,n8n:null}; currentStep=1; clearDraftStorage(); renderStep();}
+
+    el('themeCabinetBtn').addEventListener('click',()=>{setTheme('cabinet'); saveDraft();});
+    el('themeStudioBtn').addEventListener('click',()=>{setTheme('studio'); saveDraft();});
+    el('themeIndustryBtn').addEventListener('click',()=>{setTheme('industry'); saveDraft();});
+    el('modeConsultantBtn').addEventListener('click',()=>{setMode('consultant'); saveDraft();});
+    el('modeClientBtn').addEventListener('click',()=>{setMode('client'); saveDraft();});
+    el('nextStep').addEventListener('click',()=>{if(currentStep<5){currentStep++; saveDraft(); renderStep();}});
+    el('prevStep').addEventListener('click',()=>{if(currentStep>1){currentStep--; saveDraft(); renderStep();}});
+    el('gotoExtraction').addEventListener('click',()=>goToStep(5));
+    el('openReport').addEventListener('click',openReport);
+    el('openReportFromExtraction').addEventListener('click',openReport);
+    el('closeReport').addEventListener('click',closeReport);
+    el('downloadReportHtml').addEventListener('click',downloadReportHtmlFile);
+    el('printReportBtn').addEventListener('click',()=>{openReport(); document.body.classList.add('report-printing'); window.onafterprint=()=>{document.body.classList.remove('report-printing'); window.onafterprint=null;}; window.print();});
+    el('fillDemo').addEventListener('click',()=>{const run=()=>{fillDemoData(); currentStep=1; renderStep();}; if(hasData()){showConfirm('Remplacer les données actuelles ?', 'Cette action va remplacer les données en cours par un exemple de démonstration. Continuer ?', run);} else {run();}});
+    el('clearAll').addEventListener('click',()=>{if(hasData()){showConfirm('Vider la session ?', 'Toutes les données en cours et le brouillon local seront supprimés. Continuer ?', clearAll);} else {clearAll();}});
+    el('printBtn').addEventListener('click',()=>{const keep=currentStep; window.onafterprint=()=>{currentStep=keep; renderStep(false); window.onafterprint=null;}; window.print();});
+    el('downloadBundle').addEventListener('click',downloadBundle);
+    el('downloadJson').addEventListener('click',downloadJsonFile);
+    el('downloadPrompt').addEventListener('click',downloadPromptFile);
+    el('downloadN8n').addEventListener('click',downloadN8nFile);
+    el('genPdf').addEventListener('click',downloadPdfFile);
+    document.querySelectorAll('input,textarea,select').forEach(i=>i.addEventListener('input',()=>{updateSummary(); scheduleSave();}));
+    document.querySelectorAll('select').forEach(i=>i.addEventListener('change',()=>{updateSummary(); scheduleSave();}));
+    window.addEventListener('beforeunload', saveDraft);
+    renderStep(false);
+    setTheme('cabinet');
+    restoreMode();
+    restoreTheme();
+    restoreDraftOnLoad();
+  </script>
+</body>
+</html>
