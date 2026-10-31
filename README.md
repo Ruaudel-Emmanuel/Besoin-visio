@@ -1,10 +1,5 @@
 # ROI Discovery Workshop for Client Calls
 
-Behind this project 
-
-This project is a lightweight client-facing workshop tool designed for live video calls. It helps a consultant move from problem discovery to a first automation concept, then to a simple ROI estimate, without overwhelming the client with too much information at once. Progressive disclosure is a core design principle here: only the information needed for the current step is shown, which helps reduce cognitive load and keeps the conversation focused.\[web:142]\[web:146]
-
-The project also includes a separate consultant guide. That separation matters because workshop facilitation guidance, secondary questions, reformulation prompts, and sales scripting are useful for the facilitator but should not necessarily be visible to the client during screen sharing.\[web:126]\[web:150]
 
 ## Project goal
 
@@ -171,4 +166,11 @@ Possible next steps for the project include:
 ## License and customization
 
 This project is intended as a practical workshop and sales-support foundation. It can be adapted to different sectors, process types, and automation offers by changing the wording, the data model, and the ROI assumptions.
+
+Behind this project 
+
+This project is a lightweight client-facing workshop tool designed for live video calls. It helps a consultant move from problem discovery to a first automation concept, then to a simple ROI estimate, without overwhelming the client with too much information at once. Progressive disclosure is a core design principle here: only the information needed for the current step is shown, which helps reduce cognitive load and keeps the conversation focused.\[web:142]\[web:146]
+
+The project also includes a separate consultant guide. That separation matters because workshop facilitation guidance, secondary questions, reformulation prompts, and sales scripting are useful for the facilitator but should not necessarily be visible to the client during screen sharing.\[web:126]\[web:150]
+
 
